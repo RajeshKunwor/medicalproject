@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+<title>{% block title %} {{ block.super }}:Add User to Group {% endblock %}</title>
+{% block content %}
+
+    <form method="POST" action="{% url 'user:add_user_to_group' %}">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">User</span>
+
+          </div>
+             <select name="user" class="custom-select">
+                {% for u in user %}
+            <option value="{{ u.id }}">
+                {{ u.username }}
+            </option>
+            {% endfor %}
+              </select>
+        </div>
+
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Role</span>
+
+          </div>
+             <select name="group" class="custom-select">
+                 {% for g in group %}
+            <option value="{{ g.id }}">
+                {{ g.name }}
+            </option>
+            {% endfor %}
+              </select>
+        </div>
+
+
+
+        <input type="submit" value="Add">
+    </form>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+<title>{% block title %} {{block.super}}:Group-List {% endblock %}</title>
+{% block content %}
+
+{% if group %}
+    <div class="container">
+
+        {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+     <div class="row">
+        <div class="col-md-8">
+            
+  
+
+            <div class="table-responsive-sm table-hover table-border">
+
+                <table class="table">
+
+                    <thead>
+                    <tr>
+                        <th><a type="button" class="btn btn-success" href="{% url 'user:create_group' %}">
+                           <i class="fas fa-plus"></i> Add Role
+                        </a> </th>
+                        <th><div class="form-group col-md-4 float-right">
+                    <div class="input-group">
+                         <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
+
+                    </div>
+                    </div></th>
+                    </tr>
+                    <tr>
+                        <th>Group</th>
+
+
+                        <th>Action</th>
+
+                    </tr>
+                    </thead>
+                        <tbody id="myTable">
+                        {% for g in group %}
+                            <tr>
+                                <td>{{ g.name }}</td>
+
+
+
+
+                                <td><a type="button" class="btn btn-success" href="{% url 'user:update_group' g.id %}"> <i class="fas fa-edit"></i> Update</a>  <a type="button" class="btn btn-danger" href="#" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                            </tr>
+                         {% endfor %}
+                    <tbody>
+
+                </table>
+            </div>
+
+
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                    <script>
+                    $(document).ready(function(){
+                      $("#myInput").on("keyup", function() {
+                        var value = $(this).val().toLowerCase();
+                        $("#myTable tr").filter(function() {
+                          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                        });
+                      });
+                    });
+                    </script>
+
+    {% else %}
+        <a type="button" class="btn btn-success" href="{% url 'user:create_group' %}">
+            <i class="fas fa-plus"></i> Add Role
+        </a>
+    {% endif %}
+  </div>
+    </div>
+    </div>
+
+{% endblock %}

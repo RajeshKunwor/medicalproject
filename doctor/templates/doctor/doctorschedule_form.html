@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<title>{% block title %}{{block.super}}:Create-Doctor-Schedule{% endblock %}</title>
+{% block content %}
+<div class="container">
+     <a class="btn btn-secondary" href="{% url 'doctor:doctor_list' %}">Back</a>
+    <div class="row">
+        <div class="col-md">
+
+            <b>Add schedule for doctor </b> <i>{{ doctor }}</i></b>
+
+        </div>
+    </div>
+    <div class="row">
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    <input type="hidden" class="form-control" name ="d_id" value="">
+                 </div>
+            </div>
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.date|as_crispy_field }}
+                 </div>
+            </div>
+
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.time|as_crispy_field }}
+                 </div>
+            </div>
+
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.shift|as_crispy_field }}
+                 </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-outline-info mr-auto" type="submit">Save</button>
+                <button class="btn btn-outline-info" type="reset">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,270 @@
+
+{% extends 'base.html' %}
+
+<title>{% block title %} {{block.super }}:MyDetail {% endblock %}</title>
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md">
+                <p>Detail Information of {{ doctor.user }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 border p-2 pt-3 pl-5">
+                <div class="row ">
+                    <div class="col-md pb-4">
+                       <span class="border border-right-0 border-left-0 border-top-0 border-primary"> <b>Basic Info</b></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <b>First Name</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.first_name }}
+
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-md-4">
+                         <b>Middle Name</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.middle_name }}
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-4">
+                         <b>Last Name</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.last_name }}
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                         <b>Sex</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.sex }}
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                         <b>Ethical Group</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.ethical_group }}
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                         <b>Specialist</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.specialist }}
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                         <b>Citizenship Number</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.citizenship_number }}
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                         <b>Age</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.age }}
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                         <b>Date of Birth</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.year_of_birth }}
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                         <b>Mobile Number</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.mobile_no }}
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                         <b>Phone Number</b>
+                    </div>
+                    <div class="col-md">
+                        {{ doctor.phone_no }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+                <div class="col-md-5 border p-2 pt-3 pl-5">
+                    <div class="row">
+
+                        <div class="col-md pb-4">
+                           <span class="border border-right-0 border-left-0 border-top-0 border-primary"> <b>Permanent Address</b></span>
+                        </div>
+                    </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                             <b>Province</b>
+                        </div>
+                        <div class="col-md">
+                            {{ doctor.p_province }}
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                             <b>District</b>
+                        </div>
+                        <div class="col-md">
+                            {{ doctor.p_district }}
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                             <b>Municipaity/VDC</b>
+                        </div>
+                        <div class="col-md">
+                            {{ doctor.p_municipality }}
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                             <b>Ward No.</b>
+                        </div>
+                        <div class="col-md">
+                            {{ doctor.p_ward_no }}
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                             <b>Street</b>
+                        </div>
+                        <div class="col-md">
+                            {{ doctor.p_street }}
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md pb-4 pt-4">
+                           <span class="border border-right-0 border-left-0 border-top-0 border-primary"> <b>Temporary Address</b></span>
+                        </div>
+                    </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                             <b>Province</b>
+                        </div>
+                        <div class="col-md">
+                            {{ doctor.t_province }}
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                             <b>District</b>
+                        </div>
+                        <div class="col-md">
+                            {{ doctor.t_district }}
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                             <b>Municipaity/VDC</b>
+                        </div>
+                        <div class="col-md">
+                            {{ doctor.t_municipality }}
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                             <b>Ward No.</b>
+                        </div>
+                        <div class="col-md">
+                            {{ doctor.t_ward_no }}
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                             <b>Street</b>
+                        </div>
+                        <div class="col-md">
+                            {{ doctor.t_street }}
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <!--<div class="row">-->
+            <!--<div class="col-md">-->
+                <!--<a herf ="#" class="btn btn-success">Update</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+
+
+
+{% endblock %}

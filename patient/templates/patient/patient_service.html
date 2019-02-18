@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+<title>{% block title %}{{ block.super }}:Patient-Service{% endblock %}</title>
+{% block content %}
+
+<div class ="container">
+
+    <form   method="POST">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="hidden" value="{{p_id}}" name="p_id">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                  <label>Doctor</label>
+                    <select name="doctor" class="custom-select">
+                        {% for d in doctor %}
+                        <option value="{{ d.id }}">
+                            {{ d.first_name }}{{d.middle_name}}{{d.last_name}}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Service Type</label>
+                    <select name="service" class="custom-select">
+                        {% for s in service %}
+                        <option value="{{ s.id }}">
+                            {{s.name}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Height</label>
+                    <input type="text" size="4" name="height">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Weight</label>
+                    <input type="text" size="5" name="weight">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Height</label>
+                    <input type="text" name="height">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>BP</label>
+                    <input type="text" name="bp">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Sugar</label>
+                    <input type="number" name="sugar">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Temparature</label>
+                    <input type="number" name="temp">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                <label>Comment</label>
+                <textarea name="comment" cols="50" rows="6"></textarea>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                <label>Visit Date</label>
+                <input type="date" name="visit_date">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+
+                <input type="submit" value="Save">
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

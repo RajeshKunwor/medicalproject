@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{% block title %}Dashboard{% endblock %}</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style4.css' %}">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>DashBoard</h3>
+                <strong>DB</strong>
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <!-- User -->
+
+                <li class="active">
+                    <a href="{% url 'user:user_list' %}">
+                        <i class="fas fa-users"></i>
+                        User Management
+                    </a>
+
+                </li>
+                <!-- Role -->
+
+                <li>
+
+                    <a href="{% url 'user:group_list' %}">
+                        <i class="fas fa-copy"></i>
+                        Role Management
+                    </a>
+
+                </li>
+
+
+
+                <!--Adding User to Role -->
+
+                <li>
+                    <a href="{% url 'user:add-user-group' %}">
+                         <i class="fas fa-copy"></i>
+                         User to Role
+                    </a>
+                </li>
+
+                <!-- Addming Permission to Role -->
+                 <!--<li>-->
+                    <!--<a href="#">-->
+                         <!--<i class="fas fa-copy"></i>-->
+                        <!--Map Permission to Role-->
+                    <!--</a>-->
+                <!--</li>-->
+
+                <!-- Location Management -->
+                <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-copy"></i>
+                      Location Management
+                    </a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="{% url 'location:province_list' %}">Province</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'location:district_list' %}">District</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'location:municipality_list' %}">Municipality/VDC</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'location:ward_list' %}">Ward</a>
+                        </li>
+                    </ul>
+                    </li>
+
+                <!-- Patient Management -->
+                <li>
+                    <a href="{% url 'patient:patient_list' %}">
+                        Patient Management
+                    </a>
+                </li>
+
+                <!-- Doctor Management -->
+                <li>
+                    <a href="{% url 'doctor:doctor_list' %}">Doctor Management</a>
+                </li>
+
+                <!-- Appointment Management -->
+                <li>
+                    <a href="{% url 'appointment:appointment_list' %}">Appointment Management</a>
+                </li>
+
+                 <!-- Prescription Management -->
+                <li>
+                    <a href="{% url 'prescriptions:prescription_list' %}">Prescription Management</a>
+                </li>
+                <!-- Medicine Management -->
+                <li>
+                    <a href="{% url 'medicine:medicine_list' %}">Medicine Management</a>
+                </li>
+
+                <!-- Service Management -->
+                <li>
+                    <a href="{% url 'service:service_list' %}">Service Management</a>
+                </li>
+                <!-- Bill Management -->
+                <li>
+                    <a href="#">Bill Management</a>
+                </li>
+
+
+            </ul>
+
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>MENU</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+
+                            <li class="nav-item active">
+                                <p> Welcome {{ user.username }}
+                                <a class="btn btn-info" href="{%  url 'logout' %}">Logout</a>
+                                 <a class="btn btn-info" href="{% url 'change_password' %}">Change Password</a>
+                            </li>
+
+                            <!--<li>-->
+                <!--<a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">-->
+                        <!--<i class="fas fa-user"></i>-->
+                      <!--Welcome {{ user.username }}-->
+                    <!--</a>-->
+                    <!--<ul class="collapse list-unstyled" id="pageSubmenu1">-->
+                        <!--<li>-->
+                            <!--<a href="#">My Detail</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="{% url 'change_password' %}">Change Password</a>-->
+                        <!--</li>-->
+
+                        <!--<li>-->
+                            <!--<a href="{% url 'logout' %}">Logout</a>-->
+                        <!--</li>-->
+
+                    <!--</ul>-->
+                    <!--</li>-->
+
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+
+
+
+    </div>
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

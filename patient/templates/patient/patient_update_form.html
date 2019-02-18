@@ -1,0 +1,447 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+<title>{% block title %}{{block.super}}:Patient-Update{% endblock %}</title>
+{% block content %}
+
+<!--<form method="POST">-->
+<!--{% csrf_token %}-->
+<!--<div class="form-group">-->
+
+<!--{{ form|crispy }}-->
+
+<!--</div><br>-->
+<!--<div class="form-group">-->
+<!--<button class="btn btn-outline-info mr-auto" type="submit">Save</button>-->
+<!--<button class="btn btn-outline-info" type="reset">Cancel</button>-->
+<!--</div>-->
+<!--</form>-->
+
+<div class="container">
+   <!--<p>{{ form.errors }}</p>-->
+    <form method="post" id="patientForm" data-districts-url="{% url 'doctor:ajax_load_districts' %}"  data-muni-url="{% url 'doctor:ajax_load_muni' %}" data-ward-url="{% url 'doctor:ajax_load_ward' %}" novalidate>
+
+       {% csrf_token %}
+        <div class = "row">
+            <div class="col-md-12">
+                <p class=" p-1" style="color:white;background: #004d4d;"><i class="fas fa-info-circle"></i> Basic Info</p>
+            </div>
+        </div>
+
+        <div class="row">
+
+
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>{{ form.first_name.label }}</label>-->
+                    {{ form.first_name|as_crispy_field }}
+
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>{{ form.middle_name.label }}</label>-->
+                    {{ form.middle_name|as_crispy_field }}
+
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>-->
+                        <!--{{ form.last_name.label }}-->
+                    <!--</label>-->
+                    {{ form.last_name|as_crispy_field }}
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="form_group">
+                    <!--<label>{{ form.ethical_group.label }}</label>-->
+                    {{ form.ethical_group|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form_group">
+                    <!--<label>{{ form.sex.label }}</label>-->
+                    {{ form.sex|as_crispy_field }}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>{{ form.age.label }}</label>-->
+                    {{ form.age|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>{{ form.year_of_birth.label }}</label>-->
+                    {{ form.year_of_birth|as_crispy_field }}
+
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>-->
+                        <!--{{ form.citizenship_number.label }}-->
+                    <!--</label>-->
+                    {{ form.citizenship_number|as_crispy_field }}
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="form_group">
+                    <!--<label>{{ form.mobile_no.label }}</label>-->
+                    {{ form.mobile_no|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form_group">
+                    <!--<label>{{ form.phone_no.label }}</label>-->
+                    {{ form.phone_no|as_crispy_field }}
+                </div>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class="col-md-12">
+              <p class=" p-1" style="color:white;background: #004d4d;"><i class="fas fa-map-marker-alt"> </i> Permanent Address </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>{{ form.p_province.label }}</label>-->
+                    {{ form.p_province|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>{{ form.p_district.label }}</label>-->
+                    {{ form.p_district|as_crispy_field }}
+
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>-->
+                        <!--{{ form.p_municipality.label }}-->
+                    <!--</label>-->
+                    {{ form.p_municipality|as_crispy_field }}
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="form_group">
+                    <!--<label>{{ form.p_ward_no.label }}</label>-->
+                    {{ form.p_ward_no|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form_group">
+                    <!--<label>{{ form.p_street.label }}</label>-->
+                    {{ form.p_street|as_crispy_field }}
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class = "row">
+            <div class="col-md-12" >
+              <p class=" p-1" style="color:white;background: #004d4d;">  <i class="fas fa-map-marker-alt"></i> Temporary Address
+                <input id ="check" type="checkbox"/>Same As Permanent Address <i>Click the checkbox if Permanent and Temporary Addresses are same</i></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>{{ form.t_province.label }}</label>-->
+                    {{ form.t_province|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>{{ form.t_district.label }}</label>-->
+                    {{ form.t_district|as_crispy_field }}
+
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>-->
+                        <!--{{ form.t_municipality.label }}-->
+                    <!--</label>-->
+                    {{ form.t_municipality|as_crispy_field }}
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="form_group">
+                    <!--<label>{{ form.t_ward_no.label }}</label>-->
+                    {{ form.t_ward_no|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form_group">
+                    <!--<label>{{ form.t_street.label }}</label>-->
+                    {{ form.t_street|as_crispy_field }}
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+
+    </form>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+        $("#check").click(function(){
+            if ($(this).prop("checked")){
+                var province = $("#id_p_province").val()
+                var municipality = $("#id_p_municipality").val()
+                var district = $("#id_p_district").val()
+                var ward = $("#id_p_ward_no").val()
+                var street = $("#id_p_street").val()
+
+                $("#id_t_province").val(province)
+                $("#id_t_district").val(district)
+                $("#id_t_municipality").val(municipality)
+                $("#id_t_ward_no").val(ward)
+
+                $("#id_t_street").val(street)
+
+            }
+
+            else{
+                $("#id_t_province").val('')
+                $("#id_t_district").val('')
+                $("#id_t_municipality").val('')
+                $("#id_t_ward_no").val('')
+                $("#id_t_street").val('')
+            }
+        });
+    });
+</script>
+
+  <script>
+    $("#id_p_province").change(function () {
+      var url = $("#patientForm").attr("data-districts-url");  // get the url of the `load_districts` view
+
+      var provinceId = $(this).val();  // get the selected province ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'province': provinceId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_districts` view function
+          $("#id_p_district").html(data);  // replace the contents of the district input with the data that came from the server
+        }
+      });
+
+    });
+
+
+    //For Municipality
+
+    $("#id_p_district").change(function () {
+      var url = $("#patientForm").attr("data-muni-url");  // get the url of the `load_districts` view
+
+      var districtId = $(this).val();  // get the selected province ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'district':districtId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_districts` view function
+          $("#id_p_municipality").html(data);  // replace the contents of the district input with the data that came from the server
+        }
+      });
+
+    });
+
+
+    //For Ward
+
+    $("#id_p_municipality").change(function () {
+      var url = $("#patientForm").attr("data-ward-url");  // get the url of the `load_districts` view
+
+      var muniId = $(this).val();  // get the selected province ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'municipality': muniId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_districts` view function
+          $("#id_p_ward_no").html(data);  // replace the contents of the district input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+
+
+
+<!-- for temporary address -->
+<script>
+    $("#id_t_province").change(function () {
+      var url = $("#patientForm").attr("data-districts-url");  // get the url of the `load_districts` view
+
+      var provinceId = $(this).val();  // get the selected province ID from the HTML input
+
+                  $.ajax({                       // initialize an AJAX request
+                    url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                    data: {
+                      'province': provinceId       // add the country id to the GET parameters
+                    },
+                    success: function (data) {   // `data` is the return of the `load_districts` view function
+                      $("#id_t_district").html(data);  // replace the contents of the district input with the data that came from the server
+                    }
+                  });
+
+    });
+
+
+    //For Municipality
+
+    $("#id_t_district").change(function () {
+      var url = $("#patientForm").attr("data-muni-url");  // get the url of the `load_districts` view
+
+      var districtId = $(this).val();  // get the selected province ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'district':districtId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_districts` view function
+          $("#id_t_municipality").html(data);  // replace the contents of the district input with the data that came from the server
+        }
+      });
+
+    });
+
+
+    //For Ward
+
+    $("#id_t_municipality").change(function () {
+      var url = $("#patientForm").attr("data-ward-url");  // get the url of the `load_districts` view
+
+      var muniId = $(this).val();  // get the selected province ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'municipality': muniId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_districts` view function
+          $("#id_t_ward_no").html(data);  // replace the contents of the district input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+
+<!-- for temporary addreess-->
+<script>
+ $(document).ready(function(){
+
+        $("#check").click(function(){
+            if ($(this).prop("checked")){
+
+
+                  var url = $("#patientForm").attr("data-districts-url");  // get the url of the `load_districts` view
+
+                  var provinceId = $("#id_t_province").val();  // get the selected province ID from the HTML input
+                   var district = $("#id_p_district").val();
+
+                              $.ajax({                       // initialize an AJAX request
+                                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                                data: {
+                                  'province': provinceId       // add the country id to the GET parameters
+                                },
+                                success: function (data) {   // `data` is the return of the `load_districts` view function
+                                  $("#id_t_district").html(data);  // replace the contents of the district input with the data that came from the server
+                                  $('#id_t_district').val(district);
+                                }
+                              });
+
+
+
+                    var url = $("#patientForm").attr("data-muni-url");  // get the url of the `load_districts` view
+
+                  var districtId = $("#id_p_district").val();  // get the selected province ID from the HTML input
+                  var municipality = $("#id_p_municipality").val();
+
+                  $.ajax({                       // initialize an AJAX request
+                    url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                    data: {
+                      'district':districtId       // add the country id to the GET parameters
+                    },
+                    success: function (data) {   // `data` is the return of the `load_districts` view function
+                      $("#id_t_municipality").html(data);  // replace the contents of the district input with the data that came from the server
+                      $("#id_t_municipality").val(municipality);
+                    }
+                  });
+
+
+
+                  var url = $("#patientForm").attr("data-ward-url");  // get the url of the `load_districts` view
+
+                  var municipalityID = $("#id_p_municipality").val();  // get the selected province ID from the HTML input
+                  var ward = $("#id_p_ward_no").val();
+
+                  $.ajax({                       // initialize an AJAX request
+                    url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                    data: {
+                      'municipality':municipalityID       // add the country id to the GET parameters
+                    },
+                    success: function (data) {   // `data` is the return of the `load_districts` view function
+                      $("#id_t_ward_no").html(data);  // replace the contents of the district input with the data that came from the server
+                      $("#id_t_ward_no").val(ward);
+                    }
+                  });
+
+
+
+            }
+         });
+ });
+</script>
+
+
+
+{% endblock %}
+
+
+

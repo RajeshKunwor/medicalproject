@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<title>{% block title %}{{block.super}}:Create-Prescription{% endblock %}</title>
+{% block content %}
+
+
+<form method="post">
+          {% csrf_token %}
+
+    {{ formset.management_form }}
+    <table>
+        {% for form in formset %}
+        <tr><td>{{ form }}</td></tr>
+        {% endfor %}
+    </table>
+    <input type="hidden" value="false" name="additems" id="additems">
+    <button class="btn btn-primary" id="additemsbutton">Add Medicine</button>
+
+    <input type="hidden" value="false" name="removeitems" id="removeitems">
+    <button class="btn btn-primary" id="removeitemsbutton">Remove Medicine</button>
+
+    <input type="submit" value="Save" class="btn btn-primary">
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+        $("#additemsbutton").on('click',function(event) {
+         $("#additems").val("true");
+       });
+
+        $("#removeitemsbutton").on('click',function(event) {
+         $("#removeitems").val("true");
+       });
+
+});
+</script>
+
+{% endblock %}

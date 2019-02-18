@@ -1,0 +1,111 @@
+{% extends 'medical/base.html' %}
+<title>{% block title %}:Patient-Service {% endblock %}</title>
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+
+                <table class="table table-borderless table-responsive">
+                    <thead>
+                          <tr>
+                            <th>Service Type</th>
+                            <th>Weight</th>
+                            <th>BP</th>
+                            <th>Sugar</th>
+                            <th>Temperature</th>
+                            <th>Date</th>
+                          </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <h5 class=" p-1 bg-secondary">Add Service</h5>
+
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-4">
+                             <div class="form-group">
+                            <label>{{ form.service_type.label }}</label>
+                            {{ form.service_type }}
+                             </div>
+                        </div>
+
+                        <div class="col-md-2">
+                             <div class="form-group">
+                            <label>{{ form.cost.label }}</label>
+                            {{ form.cost }}
+                             </div>
+                        </div>
+
+                        <div class="col-md-3">
+                             <div class="form-group">
+                            <label>{{ form.height.label }}</label>
+                            {{ form.height }}
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                             <div class="form-group">
+                            <label>{{ form.weight.label }}</label>
+                            {{ form.weight }}
+                             </div>
+                        </div>
+
+                        <div class="col-md-3">
+                             <div class="form-group">
+                            <label>{{ form.temperature.label }}</label>
+                            {{ form.temperature }}
+                             </div>
+                        </div>
+
+                        <div class="col-md-2">
+                             <div class="form-group">
+                            <label>{{ form.sugar.label }}</label>
+                            {{ form.sugar }}
+                             </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>{{ form.BP.label }}</label>
+                                {{ form.BP }}
+                            </div>
+                        </div>
+                    </div>
+
+                   <div class="row">
+                       <div class="col-md-4">
+                           <label>{{ form.comment.label }}</label>
+                           {{ form.comment }}
+                       </div>
+                   </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>{{ form.create_date.label }}</label>
+                            {{ form.create_date }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <br>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<title>{%block title %} {{ block.super }}:Group-Create {% endblock %}</title>
+{% load crispy_forms_tags %}
+{% block content %}
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Create Group</title>
+    </head>
+    <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-success" type="submit" value="Save" />
+
+    </form>
+            </div>
+        </div>
+    </div>
+
+    </body>
+    </html>
+{% endblock %}

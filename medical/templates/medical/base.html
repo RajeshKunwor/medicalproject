@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{% block title %}Dashboard {% endblock %}</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'medical/css/style4.css' %}">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <strong>DB</strong>
+            </div>
+
+            <ul class="list-unstyled components">
+
+
+                <!-- Province -->
+
+                <li class="active">
+                    <a href="{% url 'province_list' %}">
+                        <i class="fas fa-copy"></i>
+                        Province
+                    </a>
+
+                </li>
+
+                <!-- District -->
+
+                <li>
+                    <a href="{% url 'district_list' %}">
+                        <i class="fas fa-copy"></i>
+                        District
+                    </a>
+
+                </li>
+
+                <!-- Municipality -->
+
+                <li>
+                    <a href="{% url 'municipality_list' %}">
+                        <i class="fas fa-copy"></i>
+                        Municipality
+                    </a>
+
+                </li>
+
+                <!-- Ward -->
+
+                <li>
+                    <a href="{% url 'ward_list' %}">
+                        <i class="fas fa-copy"></i>
+                        Ward
+                    </a>
+
+                </li>
+
+                <!-- Patient -->
+
+                <li>
+                    <a href="{% url 'patient_list' %}">
+                        <i class="fas fa-users"></i>
+                        Patient
+                    </a>
+
+                </li>
+
+
+                <!-- Medicine -->
+
+                <li>
+
+                    <a href="{% url 'medicine_list' %}">
+                        <i class="fas fa-copy"></i>
+                        Medicine
+                    </a>
+
+                </li>
+
+                <!-- Service Type -->
+                <li>
+                    <a href="{% url 'servicetype_list' %}">
+                        <i class="fas fa-copy"></i>
+                        Service Type
+                    </a>
+                </li>
+
+
+                <!-- Doctor -->
+                <li>
+                    <a href="{% url 'doctor_list' %}">
+                        <i class=""></i>
+                        Doctor
+                    </a>
+                </li>
+
+
+                <!-- Doctor Shedule -->
+                <li>
+                    <a href="{% url 'doctor_schedule_list' %}">
+                        <i class=""></i>
+                        Doctor Schedule
+                    </a>
+                </li>
+
+                <!-- Lab List -->
+                <li>
+                    <a href="#">
+                        <i></i>
+                        Lab Test
+                    </a>
+                </li>
+
+
+                <!-- Staff List -->
+                <li>
+                    <a href="{% url 'staff_list' %}">
+                        Staff List
+                    </a>
+
+                </li>
+            </ul>
+
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>MENU</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <p> Welcome {{ user.username }}
+                                <a class="btn btn-info" href="{%  url 'logout' %}">Logout</a>
+                                 <a class="btn btn-info" href="{% url 'change_password' %}">Change Password</a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+
+                </div>
+            </nav>
+
+
+
+
+            {% block content %}
+
+            <div class="container">
+                    <div class ="row">
+                        <div class="col-md-4">
+                            <div class="card bg-primary">
+                              <div class="card-body text-center">
+                                <p style="color:white;">Male Patient  <span class="badge badge-light">{{male_count}}</span></p>
+
+                              </div>
+                                <img class="card-img-bottom" src="{% static 'medical/images/malepatient.jpg' %}" alt="Card image" style="width:100%;height:200px;">
+                            </div>
+                        </div>
+
+                            <div class="col-md-4">
+                                <div class="card bg-success">
+                                  <div class="card-body text-center">
+                                          <p style="color:white;">Female Patient <span class="badge badge-light">{{female_count}}</span></p>
+                                  </div>
+                                                <img class="card-img-bottom" src="{% static 'medical/images/femalepatient.jpg' %}" alt="Card image" style="width:100%;height:200px;">
+                                </div>
+                            </div>
+
+                        <div class="col-md-4">
+                            <div class="card bg-info">
+                              <div class="card-body text-center">
+                                <p style="color:white;">Child Patient <span class="badge badge-light">{{child_count}}</span></p>
+                              </div>
+                                              <img class="card-img-bottom" src="{% static 'medical/images/childpatient.jpg' %}" alt="Card image" style="width:100%;height:200px;">
+                            </div>
+                        </div>
+
+
+                    </div>
+            </div>
+
+            {% endblock %}
+
+        </div>
+
+
+
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

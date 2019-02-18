@@ -1,0 +1,10 @@
+{% extends 'DemoApp/base.html' %}
+{% block content %}
+
+
+    <form method="post">
+        {% csrf_token %}
+            <button class="btn btn-danger">Are you sure you want to delete {{ object.id }}?</button>
+    </form>
+
+{% endblock %}
