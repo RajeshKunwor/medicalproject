@@ -3,7 +3,7 @@
 <title>{% block title %}{{block.super}}:Create_Appointment{% endblock %}</title>
 {% block content %}
 
-    <form method="POST">
+    <form id="appointmentForm" method="POST" load-schedule-url="{% url 'appointment:load_schedule' %}">
         {% csrf_token %}
         <div class="form-group">
 
@@ -15,5 +15,26 @@
             <button class="btn btn-outline-info" type="reset">Cancel</button>
         </div>
     </form>
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+                     <script>
+                        $("#id_doctor").change(function () {
+                          var url = $("#appointmentForm").attr("load-schedule-url");  // get the url of the `load_districts` view
+
+                          var doctorId = $(this).val();  // get the selected province ID from the HTML input
+                          alert(doctorId)
+
+                          $.ajax({                       // initialize an AJAX request
+                            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                            data: {
+                              'doctor': doctorId       // add the country id to the GET parameters
+                            },
+                            success: function (data) {   // `data` is the return of the `load_districts` view function
+                              $("#id_appointment_schedule").html(data);  // replace the contents of the district input with the data that came from the server
+                            }
+                          });
+
+                        });
+
+                    </script>
 {% endblock %}

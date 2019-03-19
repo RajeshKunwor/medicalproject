@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <p class="bg-info p-2 text-white">New Appointment Request</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Patient</th>
+                        <th>Schedule</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                    {% for na in newappointment %}
+                    <tr>
+                        <td>{{ na.patient }}</td>
+                        <td>{{ na.appointment_schedule }}</td>
+                        <td>{{ na.status }}</td>
+                        <td>
+                            <a class="btn btn-success" href="{% url 'appointment:comfirm_appointment' na.id %}">Confirm</a>
+                            <a class="btn btn-success" href="{% url 'appointment:reject_appointment' na.id %}">Reject</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <p>No Record Found!</p>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

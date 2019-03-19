@@ -1,71 +1,144 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 <title>{%block title %}{{ block.super }}:Doctor-Schedule-List {% endblock %}</title>
 {% block content %}
 <div class="container">
+
     <div class="row">
         <div class="col-md">
-            <a class="btn btn-secondary" href="{% url 'doctor:doctor_list' %}">Back</a>
+            <h6 class="bg-info text-white p-2"> Schedule of  <i>{{ doctor}}</i></h6>
         </div>
     </div>
     <div class="row">
+        <div class="col-md-4 border border-primary p-2 ">
+            <h6 class="bg-primary text-white p-1"><i class="fas fa-plus-square"></i>  Create Schedule</h6>
+            <form method="POST" action="{% url 'doctor:doctor_schedule_list' doctor.id %}"
+            class="clearfix">
+            {% csrf_token %}
 
-    {% if doctor_schedule %}
-
-            <div class="table-responsive-sm table-hover">
-                    <div class="form-group col-md-4 float-right">
-                    <div class="input-group-append">
-                         <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
-                         <i class="fa fa-search"></i>
-                    </div>
-
-
-                </div>
-                <table class="table">
-
-                    <thead>
-                    <th> Schedule of  <i>{{ doctor }}</i></th>
-                    <tr>
-
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Shift</th>
-
-                        <th>Action</th>
-
-                    </tr>
-                    </thead>
-                        <tbody id="myTable">
-                        {% for ds in doctor_schedule %}
-                            <tr>
-
-                                <td>{{ ds.date }}</td>
-                                <td>{{ ds.time }}</td>
-                                <td> {{ ds.shift }}</td>
-
-
-
-                                <td><a type="button" class="btn btn-success" href="{% url 'doctor:doctor_schedule_update' ds.id %}"> <i class="fas fa-edit"></i> Update</a>  <a type="button" class="btn btn-danger" href="#" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
-                            </tr>
-                         {% endfor %}
-                    <tbody>
-
-                </table>
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    <input type="hidden" class="form-control" name ="d_id" value="">
+                 </div>
+            </div>
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.date|as_crispy_field }}
+                 </div>
             </div>
 
-    {% endif %}
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.time|as_crispy_field }}
+                 </div>
+            </div>
 
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                    <script>
-                    $(document).ready(function(){
-                      $("#myInput").on("keyup", function() {
-                        var value = $(this).val().toLowerCase();
-                        $("#myTable tr").filter(function() {
-                          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                        });
-                      });
-                    });
-                    </script>
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.shift|as_crispy_field }}
+                 </div>
+            </div>
 
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.max_patient|as_crispy_field }}
+                 </div>
+            </div>
+
+            <div class="form-group float-right">
+                <button class="btn btn-success mr-auto" type="submit"><i class="fas fa-save"></i> Save</button>
+                <button class="btn btn-secondary" type="reset">Cancel</button>
+            </div>
+            </form>
+        </div>
+
+        <div class="col-md-8">
+            {% if doctor_schedule %}
+            <link rel="stylesheet" href="{% static 'doctor/css/style.css' %}"/>
+
+                    <div class="table-responsive-sm table-hover">
+                            <div class="form-group col-md-4 float-right">
+                            <div class="input-group-append">
+                                 <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
+
+                            </div>
+
+
+                        </div>
+                        <table class="table table-bordered">
+
+                            <thead>
+
+                            <tr>
+
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Shift</th>
+                                <th>Max Patient</th>
+                                <th>Action</th>
+
+                            </tr>
+                            </thead>
+                                <tbody id="myTable">
+                                {% for ds in doctor_schedule %}
+                                    <tr>
+
+                                        <td>{{ ds.date }}</td>
+                                        <td>{{ ds.time }}</td>
+                                        <td> {{ ds.shift }}</td>
+                                        <td>{{ ds.max_patient }}</td>
+
+
+
+                                        <td><a id="updatebtn" type="button" class="btn btn-success" href="{% url 'doctor:doctor_schedule_update' ds.id %}"> <i class="fas fa-edit"></i> Update</a>  <a type="button" class="btn btn-danger" href="#"  id="deletebtn" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                                    </tr>
+                                 {% endfor %}
+                            <tbody>
+
+                        </table>
+                    </div>
+            <div class="row">
+            <div class="col-md">
+                {% if doctor_schedule.has_other_pages %}
+                 <ul class="pagination justify-content-center">
+                    {% if doctor_schedule.has_previous %}
+                      <li class="page-item active"><a class="page-link" href="?page={{ doctor_schedule.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                      <li class=" page-item disabled"><span class="page-link">&laquo;</span></li>
+                    {% endif %}
+                     {% for i in doctor_schedule.paginator.page_range %}
+                         {% if doctor_schedule.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if doctor_schedule.has_next %}
+                      <li class="page-item active"><a class="page-link" href="?page={{ doctor_schedule.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                      <li class=" page-item disabled"><span class="nav-link">&raquo;</span></li>
+                    {% endif %}
+
+                  </ul>
+                {% endif %}
+
+
+            </div>
+        </div>
+
+            {% endif %}
+
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                            <script src="{% static 'doctor/js/schedule.js' %}">
+
+                            </script>
+        </div>
 
 </div>
 </div>

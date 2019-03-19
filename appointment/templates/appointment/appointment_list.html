@@ -1,69 +1,111 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 <title>{%block title %}{{ block.super }}:Appointment_List {% endblock %}</title>
 {% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'appointment/css/style.css' %}"/>
+</head>
+<div class="container">
+    <div class="row pb-1">
+        <div class="col-md">
+            <a class="btn btn-link" href="{% url 'home:dashboard' %}">Dashboard</a>/<a class="btn btn-link" href="{% url 'patient:patient_list' %}">Patient</a>/<a class="btn btn-link disabled" href="{% url 'appointment:appointment_list' patient.id %}">Appointment</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+
+            <p class="p-2 bg-info text-white">Appointment of Patient {{patient}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 ">
+            <form id="appointmentForm" method="POST" check-appointment-url="{% url 'appointment:check_appointment' %}"
+                  class="clearfix border border-primary p-2" load-schedule-url="{% url 'appointment:load_schedule' %}"
+             check-max-patient-url="{% url 'appointment:check_max_patient' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <h6 class="bg-primary text-white p-1"><i class="fas fa-plus-square"></i> Create Appointment</h6>
+            <input type="hidden" value="{{ patient.id }}" id="patient_id">
+            {{ form|crispy }}
+
+        </div><br>
+        <div class="form-group float-right">
+            <button class="btn btn-success mr-auto" id="savebtn" type="submit"><i class="fas fa-save"></i> Save</button>
+            <button class="btn btn-secondary" type="reset">Cancel</button>
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+                     <script src="{% static 'appointment/js/loadschedule.js' %}">
 
 
-    {% if appointment %}
-
-            <div class="table-responsive-sm table-hover">
-                    <div class="form-group col-md-4 float-right">
-                    <div class="input-group-append">
-                         <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
-                         <i class="fa fa-search"></i>
-                    </div>
-                </div>
-                <table class="table">
-
-                    <thead>
-                    <tr>
-                        <th><a type="button" class="btn btn-success" href="{% url 'appointment:appointment_create' %}">
-                           <i class="fas fa-plus"></i> Add Appointment
-                        </a> </th>
-                    </tr>
-                    <tr>
-                        <th>Patient</th>
-                        <th>Doctor</th>
-                        <th>Appointment Time</th>
-
-                        <th>Action</th>
-
-                    </tr>
-                    </thead>
-                        <tbody id="myTable">
-                        {% for a in appointment %}
-                            <tr>
-                                <td>{{ a.patient }}</td>
-                                <td>{{ a.doctor }}</td>
-                                <td>{{ a.appointment_time }}</td>
-
-
-
-                                <td><a type="button" class="btn btn-success" href="{% url 'appointment:appointment_update' %}"> <i class="fas fa-edit"></i> Update</a>  <a type="button" class="btn btn-danger" href="#" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
-                            </tr>
-                         {% endfor %}
-                    <tbody>
-
-                </table>
-            </div>
-
-
-
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                    <script>
-                    $(document).ready(function(){
-                      $("#myInput").on("keyup", function() {
-                        var value = $(this).val().toLowerCase();
-                        $("#myTable tr").filter(function() {
-                          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                        });
-                      });
-                    });
                     </script>
 
-    {% else %}
-        <a type="button" class="btn btn-success" href="{% url 'appointment:appointment_create' %}">
-            <i class="fas fa-plus"></i> Add Appointment
-        </a>
+                <script src="{% static 'appointment/js/checkschedule.js' %}">
+
+                 </script>
+                <script src="{% static 'appointment/js/check_max_patient.js' %}"></script>
+        </div>
+
+    <div class="col-md-8">
+        {% if appointment %}
+
+                <div class="table-responsive-sm table-hover" id="table">
+                        <div class="form-group col-md-4 float-right">
+                        <div class="input-group-append">
+                             <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
+
+                        </div>
+                    </div>
+                    <table class="table table-bordered">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>Doctor</th>
+                            <th>Appointment Schedule</th>
+
+                            <th>Action</th>
+
+                        </tr>
+                        </thead>
+                            <tbody id="myTable">
+                            {% for a in appointment %}
+                                <tr>
+
+                                    <td>{{ a.doctor }}</td>
+                                    <td>{{ a.appointment_schedule }}</td>
+
+
+
+                                    <td><a id="btn" type="button" class="btn btn-success" href="{% url 'appointment:appointment_update' a.id %}"> <i class="fas fa-edit"></i> Update</a></td>
+                                </tr>
+                             {% endfor %}
+                        <tbody>
+
+                    </table>
+                </div>
+
+
+
+                 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+
+                    <script src="{% static 'appointment/js/filtersearch.js' %}">
+
+                    </script>
+
+
     {% endif %}
+    </div>
+    </div>
+</div>
+
+
+
+
 
 {% endblock %}

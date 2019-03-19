@@ -4,8 +4,8 @@ from django.core.exceptions import ValidationError
 
 
 class Service(models.Model):
-    name = models.CharField(max_length=100)
-    cost = models.FloatField(default=0.00)
+    name = models.CharField(max_length=100,unique=True)
+    cost = models.FloatField()
 
 
     # def clean(self):
@@ -14,4 +14,4 @@ class Service(models.Model):
     #
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'

@@ -1,0 +1,36 @@
+{% extends 'patient/patientdashboard.html' %}
+{% block content %}
+
+{% if appointment %}
+<div class ="container">
+    <div class="row">
+        <div class="col-md">
+             <p class="bg-primary text-white p-2" >My Appointment<a class="btn btn-success float-right"
+             href="{% url 'appointment:request_appointment'  user.id %}">
+
+                 Request For Appointment</a>
+              </p>
+        </div>
+    </div>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tr>
+        <th>Doctor</th>
+        <th>Schedule</th>
+        <th>Status</th>
+    </tr>
+      {% for a in appointment %}
+    <tr>
+
+        <td>{{ a.doctor }}</td>
+        <td>{{ a.appointment_schedule }}</td>
+        <td>{{ a.status }}</td>
+
+    </tr>
+      {% endfor %}
+  </table>
+</div>
+</div>
+{% endif %}
+{% endblock %}

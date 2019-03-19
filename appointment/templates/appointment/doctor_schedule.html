@@ -1,0 +1,37 @@
+{% extends 'doctor/doctordashboard.html' %}
+{% block content %}
+
+{% if doctor_schedule %}
+<div class ="container">
+    <div class="row">
+        <div class="col-md">
+            <p class="bg-primary text-white p-2" >My Schedule</p>
+
+        </div>
+    </div>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Shift</th>
+
+    </tr>
+      {% for ds in doctor_schedule %}
+    <tr>
+
+        <td>{{ ds.date }}</td>
+        <td>{{ ds.time }}</td>
+        <td>{{ ds.shift }}</td>
+
+
+    </tr>
+      {% empty %}
+      <p>No Reord Found !</p>
+      {% endfor %}
+  </table>
+</div>
+</div>
+{% endif %}
+{% endblock %}

@@ -2,18 +2,25 @@
 {% load crispy_forms_tags %}
 <title>{% block title %}{{block.super}}:Create_Medicine{% endblock %}</title>
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h6 class="bg-primary text-white p-2">Medicine Form</h6>
+            <form method="POST" class="border border-primary p-2 clearfix">
+                {% csrf_token %}
+                <div class="form-group">
 
-    <form method="POST">
-        {% csrf_token %}
-        <div class="form-group">
+                    {{ form|crispy }}
 
-            {{ form|crispy }}
-
-        </div><br>
-        <div class="form-group">
-            <button class="btn btn-outline-info mr-auto" type="submit">Save</button>
-            <button class="btn btn-outline-info" type="reset">Cancel</button>
+                </div><br>
+                <div class="form-group  float-right">
+                    <button class="btn btn-success mr-auto" type="submit"><i class="fas fa-save"></i> Save</button>
+                    <button class="btn btn-secondary" type="reset">Cancel</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
+</div>
+
 
 {% endblock %}

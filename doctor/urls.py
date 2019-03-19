@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import *
 urlpatterns =[
-    path('dashboard/doctor_create/', DoctorCreateView.as_view(), name='doctor_create'),
+    path('dashboard/doctor_create/', DoctorCreateViews.as_view(), name='doctor_create'),
     path('dashboard/doctor_list/', DoctorListView.as_view(), name='doctor_list'),
     path('dashbaord/<int:pk>/doctor_update/', DoctorUpdateView.as_view(), name='doctor_update'),
     path('dashboard/<int:pk>/doctor_info',DoctorDetailView.as_view(),name='doctor_info'),
@@ -13,8 +13,10 @@ urlpatterns =[
     path('ajax/load-ward/', load_wards, name='ajax_load_ward'),
 
 
-    path('dashboard/<int:pk>/doctor_schedule_create/',DoctorScheduleCreateView.as_view(),name='doctor_schedule_create'),
+
     path('dashboard/<int:pk>/doctor_schedule_list/',DoctorScheduleListView.as_view(),name='doctor_schedule_list'),
     path('dashboard/<int:pk>/doctor_schedule_update',DoctorScheduleUpdateView.as_view(),name='doctor_schedule_update'),
+
+    path('dashboard/doctor/<int:pk>/my_patient/', MyPatient.as_view(), name="my_patient"),
 
 ]

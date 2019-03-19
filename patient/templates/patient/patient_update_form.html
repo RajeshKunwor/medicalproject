@@ -18,6 +18,11 @@
 <!--</form>-->
 
 <div class="container">
+    <div class="row">
+        <div class="col-md">
+            <h6 class="bg-primary text-white p-1"><i class="fas fa-user-edit"></i> Update Patient</h6>
+        </div>
+    </div>
    <!--<p>{{ form.errors }}</p>-->
     <form method="post" id="patientForm" data-districts-url="{% url 'doctor:ajax_load_districts' %}"  data-muni-url="{% url 'doctor:ajax_load_muni' %}" data-ward-url="{% url 'doctor:ajax_load_ward' %}" novalidate>
 
@@ -87,7 +92,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <!--<label>{{ form.year_of_birth.label }}</label>-->
-                    {{ form.year_of_birth|as_crispy_field }}
+                    {{ form.email|as_crispy_field }}
 
                 </div>
             </div>

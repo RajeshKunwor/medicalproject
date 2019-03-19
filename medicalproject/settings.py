@@ -24,13 +24,13 @@ SECRET_KEY = 'rx&!emrx283of%@_*^xdeq@)fhp)ey0dn@sd3qr(jp6rlfj%rh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    # 'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,9 +51,11 @@ INSTALLED_APPS = [
     'service',
     'history',
     'observation',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,6 +66,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'medicalproject.urls'
+
+# INTERNAL_IPS = ("127.0.0.1")
 
 TEMPLATES = [
     {
@@ -78,14 +82,23 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+
             ],
+
+
         },
     },
 ]
 
 WSGI_APPLICATION = 'medicalproject.wsgi.application'
 
-
+#active url register
+from django.conf import global_settings,settings
+TEMPLATE_CONTEXT_PROCESSORS = \
+ global_settings.TEMPLATES+ [
+     'django.core.context_processors.request',
+ ]
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -139,7 +152,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
+     '/var/www/static/',
 ]
 LOGIN_URL='/login/'
 LOGIN_REDIRECT_URL='home:dashboard'

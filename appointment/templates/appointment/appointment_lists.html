@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{<title>{% block title %}Appointment-List {% endblock %}</title>
+{% block content %}
+    <div class="containter">
+        <div class="row">
+            <div class="col-md">
+                <p class="bg-info text-white p-2"> Appointment Lists</p>
+                    <div class="form-group col-md-4 float-right">
+                        <div class="input-group-append">
+                             <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
+
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md">
+                <div class="responsive-table">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>#</th>
+                            <th>Patient</th>
+                            <th>Schedule</th>
+                            <th>Status</th>
+                        </tr>
+                          <tbody id="myTable">
+                        {% for a in appointment %}
+                        <tr>
+                            <td>
+                                {{ a.id }}
+                            </td>
+                            <td>
+                                {{ a.patient }}
+                            </td>
+                            <td>
+                                {{ a.appointment_schedule }}
+                            </td>
+                            <td>{{ a.status }}</td>
+                        </tr>
+                          </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md">
+                {% if is_paginated %}
+                 <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                      <li class="page-item active"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                      <li class=" page-item disabled"><span class="page-link">&laquo;</span></li>
+                    {% endif %}
+                     {% for i in paginator.page_range %}
+                         {% if page_obj.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                      <li class="page-item active"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                      <li class=" page-item disabled"><span class="nav-link">&raquo;</span></li>
+                    {% endif %}
+
+                  </ul>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script src="{% static 'appointment/js/filtersearch.js' %}"> </script>
+{% endblock %}

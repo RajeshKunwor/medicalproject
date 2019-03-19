@@ -5,7 +5,8 @@ from doctor.models import Doctor
 
 class Observation(models.Model):
     patient = models.ForeignKey(Patient,on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE)
+
+    # doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE)
     height = models.FloatField()
     weight = models.FloatField()
     BP = models.CharField(max_length=10)

@@ -15,7 +15,7 @@ class ObservationCreateView(View):
 
     def get(self, request,pk):
         # print("Pk",pk)
-        patient = Patient.objects.get(pk=pk)
+        patient = Patient.objects.select_related('user').get(pk=pk)
         context = {
             'form': self.form,
             'patient':patient,
@@ -50,7 +50,7 @@ class ObservationCreateView(View):
 
 
 
-@method_decorator([login_required(login_url='login'),superuser_only],name='dispatch')
+@method_decorator([login_required(login_url='login'), group_required('Staff')],name='dispatch')
 class ObservationUpdateView(UpdateView):
     model = Observation
     form_class = ObservationForm
@@ -58,16 +58,41 @@ class ObservationUpdateView(UpdateView):
     success_url = reverse_lazy('patient:patient_list')
 
 
-@method_decorator([login_required(login_url='login'),superuser_only],name='dispatch')
+@method_decorator([login_required(login_url='login'), group_required('Staff','Reciepnist')],name='dispatch')
 class ObservationListView(View):
-    template_name="observation/observation_list.html"
-
+    template_name = "observation/observation_list.html"
+    form = ObservationForm()
     def get(self,request,pk):
         observation = Observation.objects.filter(patient_id = pk)
-        patient =Patient.objects.get(pk=pk)
+        patient = Patient.objects.select_related('user').get(pk=pk)
         context={
             'patient':patient,
             'observation':observation,
+            'form':self.form,
         }
 
         return render(request,self.template_name,context)
+
+    @method_decorator([login_required(login_url='login'), group_required('Staff')], name='dispatch')
+    def post(self, request,pk):
+
+        form = ObservationForm(request.POST)
+        # print(request.POST)
+        if form.is_valid():
+            print(request.POST)
+            instance=form.save(commit=False)
+
+            instance.patient_id = pk
+            instance.save()
+
+            return redirect('observation:observation_list',pk)
+
+        else:
+
+            context = {
+                
+                'form': self.form,
+
+
+            }
+            return render(request, self.template_name, context)

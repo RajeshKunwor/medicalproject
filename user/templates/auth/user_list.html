@@ -1,37 +1,58 @@
 {% extends 'base.html' %}
+{% load static %}
 <title>{% block title %}{{ block.super }}:User-List{% endblock %}</title>
 {% block content %}
+
+    <link rel="stylesheet" href="{% static 'user/css/style.css' %}"/>
 
 {% if user %}
     <div class="container">
 
-                {% if messages %}
-                    <ul class="messages">
-                        {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+                <!--{% if messages %}-->
+                    <!--<ul class="messages">-->
+                        <!--{% for message in messages %}-->
+                        <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+                        <!--{% endfor %}-->
+                    <!--</ul>-->
+                <!--{% endif %}-->
+             <!--<nav aria-label="breadcrumb">-->
+              <!--<ol class="breadcrumb">-->
+                <!--<li class="breadcrumb-item"><a href="#">Home</a></li>-->
+                <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                <!--<li class="breadcrumb-item active" aria-current="page">Data</li>-->
+              <!--</ol>-->
+            <!--</nav>-->
+             <div class="row">
+                <div class="col-md">
 
-     <div class="row">
-        <div class="col-md-8">
 
 
+                    <div class="row">
+                    <div class="col-md-4">
+                        <a type="button" class="btn btn-success" href="{% url 'user:create_user' %}">
+                        <i class="fas fa-plus"></i> Add User
+                        </a>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group col-md-4 float-right">
+                            <div class="input-group-append">
+                                 <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
+                                 <!--<i class="fa fa-search"></i>-->
+                            </div>
+                        </div>
+                        </div>
+                    </div>
 
-            <div class="table-responsive-sm table-hover">
-
-
-                <table class="table">
+                    <table class="table">
 
                     <thead>
-                    <tr>
-                        <th><a type="button" class="btn btn-success" href="{% url 'user:create_user' %}">
-                           <i class="fas fa-plus"></i> Add User
-                        </a> </th>
-                        <th><input type="search" placeholder="search..." id="myInput"></th>
-                    </tr>
+
                     <tr>
                         <th>User</th>
+                        <th>Fist Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Mobile Number</th>
                         <th>Status</th>
 
                         <th>Action</th>
@@ -41,40 +62,67 @@
                         <tbody id="myTable">
                         {% for u in user %}
                             <tr>
-                                <td>{{ u.username }}</td>
+                                <td>{{ u.username }}
+                                <td>{{ u.patient.first_name }} {{ u.doctor.first_name }}</td>
+
+                                <td>{{ u.patient.last_name }} {{ u.doctor.last_name }}</td>
+                                <td>{{ u.patient.email }} {{ u.doctor.email }}</td>
+                                <td>{{ u.patient.mobile_no }} {{ u.doctor.mobile_no }}</td>
                                 <td>{{ u.is_active }}</td>
 
 
 
-                                <td><a type="button" class="btn btn-success" href="{% url 'user:update_user' u.id %}"> <i class="fas fa-edit"></i> Update</a>  <a type="button" class="btn btn-danger" href="#" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                                <td><a type="button" id="update-btn" class="btn btn-success" href="{% url 'user:update_user' u.id %}"> <i class="fas fa-edit"></i> Update</a>  <a id="delete-btn" type="button" class="btn btn-danger" href="#" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
                             </tr>
                          {% endfor %}
-                    <tbody>
+                        <tbody>
 
-                </table>
-            </div>
+                    </table>
+
 
 
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                    <script>
-                    $(document).ready(function(){
-                      $("#myInput").on("keyup", function() {
-                        var value = $(this).val().toLowerCase();
-                        $("#myTable tr").filter(function() {
-                          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                        });
-                      });
-                    });
+                    <script src="{% static 'user/js/filtersearch.js' %}">
+
                     </script>
 
-    {% else %}
-        <a type="button" class="btn btn-success" href="{% url 'user:create_user' %}">
-            <i class="fas fa-plus"></i> Add User
-        </a>
-    {% endif %}
-  </div>
-    </div>
+                {% else %}
+                    <a type="button" class="btn btn-success" href="{% url 'user:create_user' %}">
+                        <i class="fas fa-plus"></i> Add User
+                    </a>
+                {% endif %}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md">
+                {% if is_paginated %}
+                 <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                      <li class="page-item active"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                      <li class=" page-item disabled"><span class="page-link">&laquo;</span></li>
+                    {% endif %}
+                     {% for i in paginator.page_range %}
+                         {% if page_obj.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                      <li class="page-item active"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                      <li class=" page-item disabled"><span class="nav-link">&raquo;</span></li>
+                    {% endif %}
+
+                  </ul>
+                {% endif %}
+
+
+            </div>
+        </div>
     </div>
 
 {% endblock %}

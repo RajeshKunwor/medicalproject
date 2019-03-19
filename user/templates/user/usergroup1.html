@@ -1,42 +1,64 @@
-
 {% extends 'base.html' %}
 <title>{% block title %} {{ block.super }}:Add User to Group {% endblock %}</title>
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <form method="POST" action="{% url 'user:add_user_to_group' %}">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">User</span>
 
-    <form method="POST" action="{% url 'user:add_user_to_group' %}">
-        {% csrf_token %}
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">User</span>
+                  </div>
+                     <select name="user" class="custom-select">
+                        {% for u in user %}
+                    <option value="{{ u.id }}">
+                        {{ u.username }}
+                    </option>
+                    {% endfor %}
+                      </select>
+                </div>
 
-          </div>
-             <select name="user" class="custom-select">
-                {% for u in user %}
-            <option value="{{ u.id }}">
-                {{ u.username }}
-            </option>
-            {% endfor %}
-              </select>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Role</span>
+
+                  </div>
+                     <select name="group" class="custom-select">
+                         {% for g in group %}
+                    <option value="{{ g.id }}">
+                        {{ g.name }}
+                    </option>
+                    {% endfor %}
+                      </select>
+                </div>
+
+
+
+                <button type="submit" class="btn btn-success">Save</button>
+            </form>
         </div>
 
+        <div class="col-md">
+            <div class="reponsive-table">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>User</th>
+                        <th>Role</th>
+                    </tr>
+                    {% for u in user %}
+                    <tr>
+                        <td>{{ u.username }}</td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+    </div>
+    </div>
+</div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Role</span>
-
-          </div>
-             <select name="group" class="custom-select">
-                 {% for g in group %}
-            <option value="{{ g.id }}">
-                {{ g.name }}
-            </option>
-            {% endfor %}
-              </select>
-        </div>
-
-
-
-        <input type="submit" value="Add">
-    </form>
 
 {% endblock %}

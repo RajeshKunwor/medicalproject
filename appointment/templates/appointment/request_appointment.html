@@ -1,0 +1,35 @@
+{% extends 'patient/patientdashboard.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form id="appointmentForm" method="POST" check-appointment-url="{% url 'appointment:check_appointment' %}"
+                  class="clearfix border border-primary p-2" load-schedule-url="{% url 'appointment:load_schedule' %}"
+                check-max-patient-url="{% url 'appointment:check_max_patient' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <h6 class="bg-primary text-white p-1"><i class="fas fa-plus-square"></i> Request for Appointment</h6>
+                    <input type="hidden" value="{{ user.patient.id }}" id="patient_id">
+                    {{ form|crispy }}
+
+                </div><br>
+                <div class="form-group float-right">
+                    <button class="btn btn-success mr-auto" id="savebtn" type="submit"><i class="fas fa-save"></i> Save</button>
+                    <button class="btn btn-secondary" type="reset">Cancel</button>
+                </div>
+            </form>
+
+             <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+             <script src="{% static 'appointment/js/loadschedule.js' %}"> </script>
+
+
+                <script src="{% static 'appointment/js/checkschedule.js' %}"></script>
+
+                <script src="{% static 'appointment/js/check_max_patient.js' %}"></script>
+        </div>
+    </div>
+</div>
+{% endblock %}

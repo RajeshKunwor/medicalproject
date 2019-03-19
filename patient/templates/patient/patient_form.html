@@ -18,7 +18,16 @@
 <!--</form>-->
 
 <div class="container">
-
+    <div class="row pb-1">
+        <div class="col-md">
+            <a class="btn btn-link" href="{% url 'home:dashboard' %}">Dashboard</a>/<a class="btn btn-link disabled" href="#">Patient Create</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <p class="bg-primary text-white p-2" >Create Patient</p>
+        </div>
+    </div>
     <form method="post" id="patientForm" data-validate-citizenship-url="{% url 'patient:validate_citizenship' %}" data-districts-url="{% url 'patient:ajax_load_districts' %}"  data-muni-url="{% url 'patient:ajax_load_muni' %}" data-ward-url="{% url 'patient:ajax_load_ward' %}" novalidate>
 
        {% csrf_token %}
@@ -31,13 +40,7 @@
         <div class="row">
 
 
-            <div class="col-md-2">
-                <div class="form-group">
-                    <!--<label>{{ form.user.label }}</label>-->
-                    {{ form.user|as_crispy_field }}
 
-                </div>
-            </div>
 
             <div class="col-md-2">
                 <div class="form-group">
@@ -91,13 +94,7 @@
                 </div>
             </div>
 
-            <div class="col-md-2">
-                <div class="form-group">
-                    <!--<label>{{ form.year_of_birth.label }}</label>-->
-                    {{ form.year_of_birth|as_crispy_field }}
 
-                </div>
-            </div>
 
             <div class="col-md-2">
                 <div class="form-group">
@@ -108,7 +105,13 @@
                 </div>
             </div>
 
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!--<label>{{ form.year_of_birth.label }}</label>-->
+                    {{ form.email|as_crispy_field }}
 
+                </div>
+            </div>
             <div class="col-md-2">
                 <div class="form_group">
                     <!--<label>{{ form.mobile_no.label }}</label>-->

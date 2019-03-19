@@ -10,19 +10,71 @@
     </head>
     <body>
     <div class="container">
+
         <div class="row">
-            <div class="col-md-6">
+        <div class="col-md">
+            <p class="bg-primary text-white p-2" >Create User</p>
+        </div>
+        </div>
 
-
-                <form action="" method="post">
+                <form method="post">
                 {% csrf_token %}
-                {{ form|crispy }}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <!--<label>-->
+                                    <!--{{ form.last_name.label }}-->
+                                <!--</label>-->
+                                {{ form.username|as_crispy_field }}
+
+                            </div>
+                         </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <!--<label>-->
+                                    <!--{{ form.last_name.label }}-->
+                                <!--</label>-->
+                                {{ form.password1|as_crispy_field }}
+                            </div>
+                         </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <!--<label>-->
+                                    <!--{{ form.last_name.label }}-->
+                                <!--</label>-->
+                                {{ form.password2|as_crispy_field }}
+                            </div>
+                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">Role</span>
+
+                              </div>
+                                 <select name="group" class="custom-select">
+                                     <option>-------</option>
+                                     {% for g in group %}
+                                <option value="{{ g.id }}">
+                                    {{ g.name }}
+                                </option>
+                                {% endfor %}
+                                  </select>
+                             </div>
+                        </div>
+                    </div>
+
+                <!--{{ form|crispy }}-->
                 <input class="btn btn-success" type="submit" value="Save" />
 
                 </form>
             </div>
-        </div>
-    </div>
+
 
     </body>
     </html>

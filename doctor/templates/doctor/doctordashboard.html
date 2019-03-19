@@ -55,7 +55,7 @@
 
                 <!-- My Patient -->
                 <li>
-                    <a href="#"> My Patient</a>
+                    <a href="{% url 'doctor:my_patient' user.id %}"> My Patient</a>
 
                 </li>
 
@@ -63,7 +63,7 @@
 
 
                 <li>
-                    <a href="#"> My Appointment</a>
+                    <a href="{% url 'appointment:my_schedule' user.id %}"> My Schedule</a>
                 </li>
 
 
@@ -90,11 +90,32 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                              <li class="nav-item active">
-                                <p> Welcome {{ user.username }}
-                                <a class="btn btn-info" href="{%  url 'logout' %}">Logout</a>
-                                 <a class="btn btn-info" href="{% url 'change_password' %}">Change Password</a>
-                            </li>
+                              <li class="nav-item dropdown">
+                                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop1" data-toggle="dropdown">
+                                      <i class="fas fa-bell"></i><sup class="badge badge-info">{{ notification_count }}</sup>
+                                  </a>
+                                  <div class="dropdown-menu dropdown-menu-right" id="notification" view-url="{% url 'home:view_notification' %}">
+                                    {% for n in notification %}
+                                    <input type="hidden" value="{{ n.id }}" id="notification_id"/>
+                                    <a id="notification_link" class="dropdown-item float-left" href="{% url 'appointment:my_schedule' user.id %}">{{ n.message }}</a>
+                                   {% endfor %}
+                                  </div>
+                             </li>
+                              <!--<li class="nav-item active">-->
+                                <!--<p> Welcome {{ user.username }}-->
+                                <!--<a class="btn btn-info" href="{%  url 'logout' %}">Logout</a>-->
+                                 <!--<a class="btn btn-info" href="{% url 'change_password' %}">Change Password</a>-->
+                            <!--</li>-->
+                            <li class="nav-item dropdown">
+                                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                      <i class="fas fa-user"></i>
+                                  </a>
+                                  <div class="dropdown-menu dropdown-menu-right">
+                                    <p>Hi, {{ user.username }}</p>
+                                   <a class=" dropdown-item btn btn-info" href="{%  url 'logout' %}">Logout</a>
+                                      <a class=" dropdown-item btn btn-info" href="{% url 'change_password' %}">Change Password</a>
+                                  </div>
+                             </li>
 
 
                         </ul>
@@ -104,6 +125,8 @@
 
 
 
+             <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            <script src="{% static 'patient/js/notification.js' %}"></script>
 
             {% block content %}
 
@@ -115,7 +138,7 @@
 
     </div>
 
-
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
     <script type="text/javascript">

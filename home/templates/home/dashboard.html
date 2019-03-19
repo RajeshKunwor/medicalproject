@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'home/css/style.css' %}"/>
+    <div class="container">
+                    <div class ="row">
+                        <div class="col-md-4">
+                            <div class="card ">
+                                <div class="card-header bg-primary text-center"><p style="color:white;">Total Patient  <span class="badge badge-light">{{patient}}</span></p></div>
+                                <div class="card-body">
+                                       <img class="card-img-bottom" src="{% static 'medical/images/malepatient.jpg' %}" alt="Card image" style="width:100%;height:200px;">
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                            <div class="col-md">
+                                <div class="card">
+                                    <div class="card-header bg-success text-center">Today's Patient Appointment</div>
+                                    <div class="card-body">
+
+                                        <table class=" table table-responsive table-border table-light">
+
+                                            <tr>
+                                                <th>Patient</th>
+                                                <!--<th>Address</th>-->
+                                                <!--<th>Mobile Number</th>-->
+                                                <th>Mobile Number</th>
+                                                <th>Doctor</th>
+                                                <th>Doctor Contact</th>
+                                            </tr>
+                                              {% for ap in patient_appointment %}
+
+                                             <tr>
+
+                                                <td>{{ ap.patient }}</td>
+                                                 <td>{{ ap.patient.mobile_no }}</td>
+                                                 <td>{{ ap.doctor }}</td>
+                                                 <td> {{ ap.doctor.mobile_no }}</td>
+                                                <!--<td>{{ rp.patient__id.mobile_no }}</td>-->
+
+
+
+                                            </tr>
+                                             {% empty %}
+                                            <p>No data is found !</p>
+
+                                            {% endfor %}
+
+
+
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                    </div>
+
+
+
+                    <div class ="row mt-4">
+                        <div class="col-md-4">
+                            <div class="card ">
+                                <div class="card-header bg-primary text-center"><p style="color:white;">Total Doctor  <span class="badge badge-light">{{doctor}}</span></p></div>
+                                <div class="card-body">
+                                       <img class="card-img-bottom" src="{% static 'medical/images/malepatient.jpg' %}" alt="Card image" style="width:100%;height:200px;">
+                                </div>
+
+                            </div>
+                        </div>
+
+                            <div class="col-md">
+                                <div class="card">
+                                    <div class="card-header bg-success text-center">Today's Doctor Schedule</div>
+                                    <div class="card-body">
+
+                                        <table class=" table table-responsive table-border table-light">
+                                            {% if doctor_schedule %}
+                                            <tr>
+                                                <th>Doctor Name</th>
+                                                <th>Time</th>
+                                                <th>Shift</th>
+                                                <th>Mobile Number</th>
+                                            </tr>
+                                              {% for ds in doctor_schedule %}
+                                             <tr>
+
+                                                <td>{{ ds.doctor }}</td>
+                                                <td>{{ ds.time }}</td>
+                                                <td>{{ ds.shift }}</td>
+                                                 <td>{{ ds.doctor.mobile_no }}</td>
+
+                                            </tr>
+                                            {% endfor %}
+                                            {%  else %}
+                                            <p>No Schedule is found for today</p>
+                                            {% endif %}
+                                        </table>
+
+                                    </div>
+                                    <!--<div class="card-footer">Footer</div>-->
+                                  </div>
+                                <!--<div class="card bg-success">-->
+                                  <!--<div class="card-body text-center">-->
+                                          <!--<p style="color:white;">Today's Doctor Schedule</p>-->
+                                  <!--</div>-->
+
+                            </div>
+
+                        <!--<div class="col-md-4">-->
+                            <!--<div class="card bg-info">-->
+                              <!--<div class="card-body text-center">-->
+                                <!--<p style="color:white;">Child Patient <span class="badge badge-light">{{child_count}}</span></p>-->
+                              <!--</div>-->
+                                              <!--<img class="card-img-bottom" src="{% static 'medical/images/childpatient.jpg' %}" alt="Card image" style="width:100%;height:200px;">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+
+                    </div>
+            </div>
+
+{% endblock %}

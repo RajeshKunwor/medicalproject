@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load nav %}
 <html>
 
 <head>
@@ -32,9 +33,17 @@
 
             <ul class="list-unstyled components">
 
+                <!-- Dashboard -->
+                <!--<p>{{ url_name }}</p>-->
+                <li class ="{% active_nav request 'dashboard' %}">
+                    <a href="{% url 'home:dashboard' %}">
+                        <i class="fas fa-desktop"></i>
+                        Dashboard
+                    </a>
+                </li>
                 <!-- User -->
 
-                <li class="active">
+                <li class ="{% active_nav request 'user_list' %}">
                     <a href="{% url 'user:user_list' %}">
                         <i class="fas fa-users"></i>
                         User Management
@@ -43,7 +52,7 @@
                 </li>
                 <!-- Role -->
 
-                <li>
+                <li class ="{% active_nav request 'group_list' %}">
 
                     <a href="{% url 'user:group_list' %}">
                         <i class="fas fa-copy"></i>
@@ -56,12 +65,12 @@
 
                 <!--Adding User to Role -->
 
-                <li>
-                    <a href="{% url 'user:add-user-group' %}">
-                         <i class="fas fa-copy"></i>
-                         User to Role
-                    </a>
-                </li>
+                <!--<li>-->
+                    <!--<a href="{% url 'user:add-user-group' %}">-->
+                         <!--<i class="fas fa-copy"></i>-->
+                         <!--User to Role-->
+                    <!--</a>-->
+                <!--</li>-->
 
                 <!-- Addming Permission to Role -->
                  <!--<li>-->
@@ -94,39 +103,39 @@
                     </li>
 
                 <!-- Patient Management -->
-                <li>
+                <li class="{% active_nav request 'patient_list' %}{% active_nav request 'patient_create' %}">
                     <a href="{% url 'patient:patient_list' %}">
-                        Patient Management
+                        <i class="fas fa-users-medical"></i> Patient Management
                     </a>
                 </li>
 
                 <!-- Doctor Management -->
-                <li>
-                    <a href="{% url 'doctor:doctor_list' %}">Doctor Management</a>
+                <li class="{% active_nav request 'doctor_list' %}">
+                    <a href="{% url 'doctor:doctor_list' %}"><i class="fas fa-user-md"></i> Doctor Management</a>
                 </li>
 
-                <!-- Appointment Management -->
-                <li>
-                    <a href="{% url 'appointment:appointment_list' %}">Appointment Management</a>
+                <!-- new appointment -->
+                <li class="{% active_nav request 'new_appointment' %}">
+                    <a href="{% url 'appointment:new_appointment' %}">New Appointment <span class="badge badge-info">{{ count }}</span></a>
                 </li>
 
-                 <!-- Prescription Management -->
-                <li>
-                    <a href="{% url 'prescriptions:prescription_list' %}">Prescription Management</a>
+
+                <li class="{% active_nav request 'appointment_lists' %}">
+                    <a href="{% url 'appointment:appointment_lists' %}">Appointment</a>
                 </li>
                 <!-- Medicine Management -->
-                <li>
-                    <a href="{% url 'medicine:medicine_list' %}">Medicine Management</a>
+                <li class="{% active_nav request 'medicine_list' %}">
+                    <a href="{% url 'medicine:medicine_list' %}"><i class="fas fa-capsules"></i> Medicine Management</a>
                 </li>
 
                 <!-- Service Management -->
-                <li>
-                    <a href="{% url 'service:service_list' %}">Service Management</a>
+                <li class="{% active_nav request 'service_list' %}">
+                    <a href="{% url 'service:service_list' %}"> <i class="fas fa-briefcase-medical"></i> Service Management</a>
                 </li>
                 <!-- Bill Management -->
-                <li>
-                    <a href="#">Bill Management</a>
-                </li>
+                <!--<li>-->
+                    <!--<a href="#"><i class="fas fa-money-bill-wave"></i> Bill Management</a>-->
+                <!--</li>-->
 
 
             </ul>
@@ -138,7 +147,7 @@
         <div id="content">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
+                <div class="container-fluid pd-0">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
                         <i class="fas fa-align-left"></i>
@@ -147,15 +156,32 @@
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
-
+                    <!--<form class="form-inline">-->
+                        <!--<input class="form-control mr-sm-2" type="text" placeholder="Search">-->
+                        <!--<button class="btn btn-success" type="submit">Search</button>-->
+                      <!--</form>-->
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
+                        <ul class="nav navbar-nav ml-auto pb-0">
 
-                            <li class="nav-item active">
-                                <p> Welcome {{ user.username }}
-                                <a class="btn btn-info" href="{%  url 'logout' %}">Logout</a>
-                                 <a class="btn btn-info" href="{% url 'change_password' %}">Change Password</a>
-                            </li>
+                           <li class="nav-item dropdown ">
+                                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop1" data-toggle="dropdown">
+                                      <i class="fas fa-bell"></i>
+                                  </a>
+                                  <div class="dropdown-menu dropdown-menu-right">
+
+                                  </div>
+                             </li>
+
+                           <li class="nav-item dropdown">
+                                   <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                       <i class="fas fa-user"></i>
+                                  </a>
+                                  <div class="dropdown-menu dropdown-menu-right">
+                                   <p class="p-1">Hi, {{ user.username }}</p>
+                                   <a class=" dropdown-item btn btn-info" href="{%  url 'logout' %}">Logout</a>
+                                      <a class=" dropdown-item btn btn-info" href="{% url 'change_password' %}">Change Password</a>
+                                  </div>
+                             </li>
 
                             <!--<li>-->
                 <!--<a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">-->
@@ -185,7 +211,20 @@
 
 
 
-
+            {% block message %}
+            {% for message in messages %}
+              <!--<div class="alert {{ message.tags }} alert-dismissible" role="alert">-->
+                <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+                  <!--<span aria-hidden="true">&times;</span>-->
+                <!--</button>-->
+                <!--{{ message }}-->
+              <!--</div>-->
+            <div class="alert {{ message.tags }} alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+            </div>
+{% endfor %}
+            {% endblock %}
             {% block content %}
 
             {% endblock %}
@@ -196,6 +235,7 @@
 
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 

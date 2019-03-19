@@ -21,8 +21,9 @@ class Patient(models.Model):
     ethical_group = models.CharField(choices=ethical_group,verbose_name='Ethical Group',max_length=50,default='',blank=True)
     sex = models.CharField(choices=sex,verbose_name='Sex',max_length=15)
     age = models.IntegerField(verbose_name='Age')
-    year_of_birth = models.DateField(verbose_name='Year Of Birth')
+    # year_of_birth = models.DateField(verbose_name='Year Of Birth')
     citizenship_number = models.CharField(verbose_name='Citizenship Number',default='',max_length=50,blank=True,unique=True)
+    email= models.EmailField(max_length=50,default='',blank=True)
     mobile_no = models.CharField(verbose_name="Mobile No.",max_length=15)
     phone_no = models.CharField(verbose_name='Phone No.',default='',max_length=10,blank=True)
     p_province = models.ForeignKey(Province,on_delete=models.CASCADE,related_name='perma',verbose_name='Province')
@@ -60,4 +61,4 @@ class PatientVisit(models.Model):
     create_date = models.DateField()
 
     def __str__(self):
-        return f'{self.patient}|{self.service}|{self.create_date}'
+        return f'{self.patient}|{self.medicine}|{self.create_date}'

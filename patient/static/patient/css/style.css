@@ -1,0 +1,27 @@
+table{
+    font-size: 12px;
+}
+#updatebtn{
+    font-size: 12px;
+}
+#historybtn{
+    font-size: 12px;
+}
+#billbtn{
+    font-size: 12px;
+}
+#observationbtn{
+    font-size: 12px;
+}
+#prescriptionbtn{
+    font-size: 12px;
+}
+#appointmentbtn{
+    font-size: 12px;
+}
+#addtbtn{
+    font-size: 12px;
+}
+td{
+    padding: 0px;
+}

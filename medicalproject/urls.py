@@ -18,10 +18,14 @@ from django.urls import path,include
 from django.conf.urls import include, url
 from django.contrib.auth.views import LoginView,LogoutView,PasswordChangeView,PasswordChangeDoneView
 from django.contrib.auth.decorators import login_required,permission_required,user_passes_test
-
+from django.conf import settings
+import static
+if settings.DEBUG:
+    import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('__debug__/', include(debug_toolbar.urls)),
     url('home/',include(('home.urls','home'),namespace='home')),
     url('medical/',include(('medical.urls','medical'),namespace="medical")),
     url('location/',include(('location.urls','location'),namespace="location")),
@@ -31,11 +35,14 @@ urlpatterns = [
     path('medicine/',include(('medicine.urls',',medicine'),namespace="medicine")),
     path('appointment/',include(('appointment.urls','appointment'),namespace="appointment")),
     path('prescriptions/',include(('prescriptions.urls','prescriptions'),namespace='prescriptions')),
-    path('service/',include(('service.urls','service'),namespace='service')),
+
     path('history/',include(('history.urls','history'),namespace='history')),
     path('observation/',include(('observation.urls','observation'),namespace='observation')),
+    path('bill/',include(('bill.urls','bill'),namespace = 'bill')),
+    path('service/',include(('service.urls','service'),namespace='service')),
     path('dashboard/change_password',login_required(login_url='login')(PasswordChangeView.as_view(template_name='registration/change_password.html')),name='change_password'),
     path('dashboard/password_change_done',login_required(login_url='login')(PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html')),name ='password_change_done'),
     path('',LoginView.as_view(template_name='registration/login.html',redirect_authenticated_user = True),name='login'),
     path('logout',LogoutView.as_view(),name='logout'),
 ]
+

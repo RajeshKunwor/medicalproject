@@ -17,7 +17,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 @method_decorator([login_required(login_url='login'),superuser_only],name='dispatch')
 class UserView(generic.ListView):
     model = User
-    fields = ('username','is_active')
+    # fields = ('username','is_active')
+    queryset = User.objects.all().select_related('patient','doctor')
+    paginate_by = 5
     context_object_name = 'user'
 
 
@@ -62,13 +64,46 @@ class GroupDeleteView(generic.DeleteView):
 
 
 @method_decorator([login_required(login_url='login'),superuser_only],name='dispatch')
-class UserCreationView(generic.CreateView):
-    model = User
-    #fields = ('username','email','password1','password2')
-    form_class = UserRegistrationForm
+class UserCreationView(generic.View):
 
+    template_name = "auth/user_form.html"
+    form = UserRegistrationForm()
+    group = Group.objects.all()
+    def get(self,request):
 
-    success_url =reverse_lazy('user:user_list')
+        context = {
+            'form': self.form,
+            'group': self.group,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self,request):
+
+        form = UserRegistrationForm(request.POST)
+        group_id = request.POST["group"]
+        print(group_id)
+        if form.is_valid():
+            instance = form.save(commit=False)
+
+            group = Group.objects.get(pk=group_id)
+            print("group",group)
+            instance.save()
+            group.user_set.add(instance)
+
+            print(instance.username)
+            return redirect('user:user_list')
+        else:
+            context = {
+                'form': self.form,
+                'group': self.group,
+            }
+            return render(request, self.template_name, context)
+    # model = User
+    # #fields = ('username','email','password1','password2')
+    # form_class = UserRegistrationForm
+    #
+    #
+    # success_url =reverse_lazy('user:user_list')
 
 
 @method_decorator([login_required(login_url='login'),superuser_only],name='dispatch')
@@ -83,7 +118,7 @@ class GroupCreationView(generic.CreateView,SuccessMessageMixin):
 def add_user_to_group(request):
     user_id = request.POST['user']
     group_id = request.POST['group']
-    user =User.objects.get(pk=user_id)
+    user = User.objects.get(pk=user_id)
     group = Group.objects.get(pk=group_id)
     user.groups.add(group)
     return redirect('dashboard')

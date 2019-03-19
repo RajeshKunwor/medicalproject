@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
-        fields = '__all__'
+        exclude=['user']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -25,12 +25,12 @@ class PatientForm(forms.ModelForm):
         return self.cleaned_data.get('mobile_no','')
 
 
-    def clean_phone_no(self):
-
-        data = self.cleaned_data.get('phone_no','')
-        if len(data)!=9:
-            raise forms.ValidationError("Invalid phone number.")
-        return self.cleaned_data.get('phone_no','')
+    # def clean_phone_no(self):
+    #
+    #     data = self.cleaned_data.get('phone_no','')
+    #     if len(data)!=9:
+    #         raise forms.ValidationError("Invalid phone number.")
+    #     return self.cleaned_data.get('phone_no','')
 
 
         # self.fields['p_district'].queryset = District.objects.none()

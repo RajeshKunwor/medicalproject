@@ -2,18 +2,57 @@
 {% load crispy_forms_tags %}
 <title>{% block title %}{{block.super}}:Update-Doctor-Schedule{% endblock %}</title>
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 border border-primary p-2 ">
+            <h6 class="bg-primary text-white p-1"><i class="fas fa-plus-square"></i>  Update Schedule</h6>
+            <form method="POST"
+            class="clearfix">
+            {% csrf_token %}
 
-    <form method="POST">
-        {% csrf_token %}
-        <div class="form-group">
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    <input type="hidden" class="form-control" name ="d_id" value="">
+                 </div>
+            </div>
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.date|as_crispy_field }}
+                 </div>
+            </div>
 
-            {{ form|crispy }}
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.time|as_crispy_field }}
+                 </div>
+            </div>
 
-        </div><br>
-        <div class="form-group">
-            <button class="btn btn-outline-info mr-auto" type="submit">Save</button>
-            <button class="btn btn-outline-info" type="reset">Cancel</button>
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.shift|as_crispy_field }}
+                 </div>
+            </div>
+
+            <div class="col-md-2>">
+                 <div class="form-group">
+                    <!--<label for="email">Email:</label>-->
+                    {{ form.max_patient|as_crispy_field }}
+                 </div>
+            </div>
+
+            <div class="form-group float-right">
+                <button class="btn btn-success mr-auto" type="submit"><i class="fas fa-save"></i> Save</button>
+                <button class="btn btn-secondary" type="reset">Cancel</button>
+            </div>
+            </form>
+
         </div>
-    </form>
+    </div>
+</div>
+
 
 {% endblock %}

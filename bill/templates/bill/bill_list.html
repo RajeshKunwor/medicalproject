@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+<title>{%block title %}{{ block.super }}:History-List {% endblock %}</title>
+{% block content %}
+<div class="container">
+      <div class="row pb-1">
+        <div class="col-md">
+            <a class="btn btn-link" href="{% url 'home:dashboard' %}">Dashboard</a>/<a class="btn btn-link" href="{% url 'patient:patient_list' %}">Patient</a>/<a class="btn btn-link disabled" href="#">Bill</a>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-md">
+            <p class="bg-info font-weight-bold text-white p-2"> Bill of  <i>{{ patient}}</i></p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <form id="billForm" method="POST"  load-prescription-url = "{% url 'bill:load_prescription_data' %}"
+                  check-prescription-url="{% url 'bill:check_prescription' %}"
+                  load-service-url = "{% url 'bill:load_service_data' %}" action="{% url 'bill:bill_list' patient.id %}"
+                    class ="clearfix border border-primary p-2">
+                <h6 class="bg-primary text-white p-1"><i class="fas fa-plus-square"></i> Create Bill</h6>
+                    {% csrf_token %}
+                <div class="form-group">
+                    <input type="hidden" value="{{ patient.id }}" id="id_patient">
+                    {{ form|crispy }}
+                </div>
+
+                <div class="form-group float-right">
+                    <button id="savebtn" type="submit" class="btn btn-success"><i class="fas fa-save"></i> Save</button>
+                    <a class="btn btn-info" href="{% url 'bill:generate_bill' %}" id="generatebtn">Generate Bill</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8">
+
+
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                     <script src="{% static 'bill/js/loadprescription.js' %}">
+
+
+
+                    </script>
+
+                <script src="{% static 'bill/js/loadservices.js' %}">
+
+
+
+                    </script>
+
+                <script src="{% static 'bill/js/checkprescription.js' %}">
+
+                 </script>
+
+        {% if bill %}
+                <link rel="stylesheet" href="{% static 'bill/css/style.css' %}"/>
+                <div class="table-responsive-sm table-hover">
+                        <div class="form-group col-md-4 float-right">
+                        <div class="input-group-append">
+                             <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
+
+                        </div>
+
+
+                    </div>
+                    <table class="table table-bordered">
+
+                        <thead>
+
+                        <tr>
+
+                            <!--<th>ID</th>-->
+                            <th>Date</th>
+                            <th>Prescription</th>
+
+
+                            <!--<th>Action</th>-->
+
+                        </tr>
+                        </thead>
+                            <tbody id="myTable">
+                            {% for b in bill%}
+                                <tr>
+
+                                    <!--<td>{{ h.id }}</td>-->
+                                    <td>{{ b.date }}</td>
+                                    <td>{{ b.prescription }}</td>
+
+
+
+
+
+                             {% endfor %}
+                        <tbody>
+
+                    </table>
+                </div>
+
+        {% endif %}
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                        <script src="{% static 'bill/js/filtersearch.js' %}">
+
+                        </script>
+
+
+
+            </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load static %}
+<title>{% block title %} {{super.base}}:Bill Detail {% endblock %}</title>
+{% block content %}
+<link rel="stylesheet" href="{% static 'bill/css/style.css' %}"/>
+<div class = "container">
+    <div class = "row">
+        <div class="col-md-8">
+            <p>Patient: <b>{{ patient }}</b></p>
+            <p>Prescription ID: <b>{{ prescription }}</b></p>
+        </div>
+        <div class="col-md">
+            <p>Date:</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md">
+            <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>S.N.</th>
+                  <th>Item</th>
+                  <th>Quantity</th>
+                  <th>Rate</th>
+                  <th>Total</th>
+
+                </tr>
+              </thead>
+
+              <tbody>
+              <tr>
+                  <td colspan="5"> Medicine Details</td>
+              </tr>
+             {% with subtotal=0.0 total=0 %}
+              {% for pd in prescribedmedicine %}
+
+                <tr>
+
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ pd.medicine }}</td>
+                    <td>{{ pd.quantity }}</td>
+                    <td>{{ pd.medicine.price }}</td>
+                    <td>{{ pd.quantity|mul:pd.medicine.price }}</td>
+
+
+                </tr>
+              {% endfor %}
+
+              <tr>
+                  <th colspan="4">Total</th>
+                  <th>{{ medicine_cost }}</th>
+              </tr>
+              {% endwith %}
+              <tr>
+                   <td colspan="5">Service Details</td>
+              </tr>
+
+              {% for s in service %}
+               <tr>
+
+                    <td>{{ forloop.counter }}</td>
+                    <td colspan="3">{{ s.service }}</td>
+
+                    <td >{{ s.service.cost }}</td>
+
+
+                </tr>
+              {% endfor %}
+              <tr>
+                  <th colspan="4">Total</th>
+                  <th>{{ total_cost }}</th>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+

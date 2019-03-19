@@ -1,16 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'history/history_list.html' %}
 {% load crispy_forms_tags %}
 <title>{%block title %}{{ block.super }}:History-Create {% endblock %}</title>
-{% block content %}
-<div class="container">
-    <a class="btn btn-secondary" href="{% url 'patient:patient_list' %}">Back</a>
-    <div class="row">
-        <div class="col-md-4">
-            <b>Add History of </b> <i>{{ patient }}</i>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
+{% block historyform %}
+
+    <!--<a class="btn btn-secondary" href="{% url 'patient:patient_list' %}">Back</a>-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-4">-->
+            <!--<b>Add History of </b> <i>{{ patient }}</i>-->
+        <!--</div>-->
+    <!--</div>-->
+
             <form method="POST">
                     {% csrf_token %}
                 <div class="form-group">
@@ -21,7 +20,6 @@
                     <button type="submit" class="btn btn-success">Save</button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
+
+
 {% endblock %}

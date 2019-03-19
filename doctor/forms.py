@@ -7,13 +7,13 @@ from django.contrib.auth.models import User
 class DoctorScheduleForm(forms.ModelForm):
     class Meta:
         model = DoctorSchedule
-        fields=["date","time","shift"]
+        fields=["date","time","shift","max_patient"]
 
 
 class DoctorForm(forms.ModelForm):
     class Meta:
         model = Doctor
-        fields = '__all__'
+        exclude=['user']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -31,15 +31,15 @@ class DoctorForm(forms.ModelForm):
         return self.cleaned_data.get('mobile_no','')
 
 
-    def clean_phone_no(self):
-
-        data = self.cleaned_data.get('phone_no','')
-        # if data == '':
-        #     raise forms.ValidationError("Phone number is empty.")
-
-        if len(data)!=9:
-            raise forms.ValidationError("Invalid phone number.")
-        return self.cleaned_data.get('phone_no','')
+    # def clean_phone_no(self):
+    #
+    #     data = self.cleaned_data.get('phone_no','')
+    #     # if data == '':
+    #     #     raise forms.ValidationError("Phone number is empty.")
+    #
+    #     if len(data)!=9:
+    #         raise forms.ValidationError("Invalid phone number.")
+    #     return self.cleaned_data.get('phone_no','')
 
 
         # self.fields['p_district'].queryset = District.objects.none()

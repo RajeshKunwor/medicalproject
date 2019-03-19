@@ -5,12 +5,15 @@ from django.contrib.auth.models import User,Group
 
 class UserRegistrationForm(UserCreationForm):
 
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    # email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2',)
-
+        fields = ('username', 'password1', 'password2',)
+        help_texts = {
+            'username': None,
+            'password2': None,
+        }
 
 
 class UserGroup(forms.Form):
@@ -19,6 +22,7 @@ class UserGroup(forms.Form):
     #user = forms.ChoiceField(choices=users,widget=forms.Select())
     name = forms.MultipleChoiceField(widget=forms.Select(),choices=(('a','abc'),('b','ads')))
     names = forms.Field()
+
 
 
 

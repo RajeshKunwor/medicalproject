@@ -1,33 +1,64 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
 <title>{%block title %}{{ block.super }}:Observation-List {% endblock %}</title>
 {% block content %}
 <div class="container">
-    <div class="row">
+     <div class="row pb-1">
         <div class="col-md">
-            <a class="btn btn-secondary" href="{% url 'patient:patient_list' %}">Back</a>
+            <a class="btn btn-link" href="{% url 'home:dashboard' %}">Dashboard</a>/<a class="btn btn-link" href="{% url 'patient:patient_list' %}">Patient</a>/<a class="btn btn-link disabled" href="{% url 'observation:observation_list' patient.id %}">Observation</a>
         </div>
     </div>
+    <div class="row pt-2">
+        <div class="col-md">
+            <p class="bg-info font-weight-bold text-white p-2"> Observation of  <i>{{ patient}}</i></p>
+        </div>
+    </div>
+
     <div class="row">
+        <div class="col-md-4 border border-primary p-2">
+            <form method="POST" class="clearfix">
+                <h6 class="bg-primary text-white p-1"><i class="fas fa-plus-square"></i> Create Observation</h6>
+                    {% csrf_token %}
+                <div class="form-group">
+                    {{ form|crispy }}
+                </div>
+
+                <div class="form-group float-right">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-8">
 
     {% if observation %}
+            <link rel="stylesheet" href="{% static 'observation/css/style.css' %}"/>
+                <!--<div class="form-group col-md-4 float-right">-->
+                    <!--<div class="input-group-append">-->
+                         <!--<input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">-->
+                         <!--<i class="fa fa-search"></i>-->
+                    <!--</div>-->
+            <div class="table-responsive">
 
-            <div class="table-responsive-sm table-hover">
-                    <div class="form-group col-md-4 float-right">
-                    <div class="input-group-append">
-                         <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
-                         <i class="fa fa-search"></i>
+
+                <div class="form-group col-md-4 float-right">
+                        <div class="input-group-append">
+                             <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
+
+                        </div>
+
+
                     </div>
 
-
-                </div>
-                <table class="table">
+                <table class="table table-bordered">
 
                     <thead>
-                    <th> Observation of  <i>{{ patient}}</i></th>
+
                     <tr>
 
                         <th>ID</th>
-                        <th>Doctor</th>
+
                         <th>Height</th>
                         <th>Weight</th>
                         <th>Sugar</th>
@@ -45,7 +76,7 @@
                         {% for o in observation %}
                             <tr>
                                 <td>{{ o.id }}</td>
-                                <td>{{ o.doctor }}</td>
+
                                 <td>{{ o.height }}</td>
                                 <td>{{ o.weight }}</td>
                                 <td>{{ o.sugar }}</td>
@@ -57,26 +88,20 @@
 
 
 
-                                <td><a type="button" class="btn btn-success" href="{% url 'observation:observation_update' o.id %}"> <i class="fas fa-edit"></i> Update</a>  <a type="button" class="btn btn-danger" href="#" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                                <td><a id="updatebtn" type="button" class="btn btn-success" href="{% url 'observation:observation_update' o.id %}"> <i class="fas fa-edit"></i> Update</a> </td>
                             </tr>
                          {% endfor %}
                     <tbody>
 
                 </table>
             </div>
-
+            </div>
+             </div>
     {% endif %}
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                    <script>
-                    $(document).ready(function(){
-                      $("#myInput").on("keyup", function() {
-                        var value = $(this).val().toLowerCase();
-                        $("#myTable tr").filter(function() {
-                          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                        });
-                      });
-                    });
+                    <script src="{% static 'observation/js/filtersearch.js' %}">
+
                     </script>
 
 

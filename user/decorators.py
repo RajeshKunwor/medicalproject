@@ -18,7 +18,7 @@ def superuser_only(function):
 
 
 
-def group_required(group,raise_exception='False'):
+def group_required(*group,raise_exception='False'):
     """
     Decorator for views that checks whether a user has a group permission,
     redirecting to the log-in page if necessary.
@@ -32,11 +32,12 @@ def group_required(group,raise_exception='False'):
             groups = group
         # First check if the user has the permission (even anon users)
 
-        if user.groups.filter(name__in=groups).exists()|user.is_superuser():
+        if user.groups.filter(name__in=groups).exists() or user.is_superuser:
             return True
         # In case the 403 handler should be called raise the exception
         if raise_exception:
             raise PermissionDenied
         # As the last resort, show the login form
+
         return False
     return user_passes_test(check_perms, login_url='login')

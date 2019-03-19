@@ -1,72 +1,94 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 <title>{%block title %}{{ block.super }}:History-List {% endblock %}</title>
 {% block content %}
 <div class="container">
-    <div class="row">
+      <div class="row pb-1">
         <div class="col-md">
-            <a class="btn btn-secondary" href="{% url 'patient:patient_list' %}">Back</a>
+            <a class="btn btn-link" href="{% url 'home:dashboard' %}">Dashboard</a>/<a class="btn btn-link" href="{% url 'patient:patient_list' %}">Patient</a>/<a class="btn btn-link disabled" href="{% url 'history:history_list' patient.id %}">History</a>
         </div>
     </div>
+    <div class="row pt-2">
+        <div class="col-md">
+            <p class="bg-info font-weight-bold text-white p-2"> History of  <i>{{ patient}}</i></p>
+        </div>
+    </div>
+
+
     <div class="row">
-
-    {% if history %}
-
-            <div class="table-responsive-sm table-hover">
-                    <div class="form-group col-md-4 float-right">
-                    <div class="input-group-append">
-                         <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
-                         <i class="fa fa-search"></i>
-                    </div>
-
-
+        <div class="col-md-4">
+            <form id="historyform" method="POST" action="{% url 'history:history_list' patient.id %}"
+            class="clearfix border border-primary p-2">
+                <h6 class="bg-primary text-white p-1">Create History</h6>
+                    {% csrf_token %}
+                <div class="form-group">
+                    {{ form|crispy }}
                 </div>
-                <table class="table">
 
-                    <thead>
-                    <th> History of  <i>{{ patient}}</i></th>
-                    <tr>
-
-                        <th>ID</th>
-                        <th>History</th>
-
-
-                        <th>Action</th>
-
-                    </tr>
-                    </thead>
-                        <tbody id="myTable">
-                        {% for h in history %}
-                            <tr>
-
-                                <td>{{ h.id }}</td>
-                                <td>{{ h.details }}</td>
+                <div class="form-group float-right">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8">
 
 
 
+        {% if history %}
+                <link rel="stylesheet" href="{% static 'history/css/style.css' %"/>
+                <div class="table-responsive-sm table-hover" style="font-size:12px;padding:0px;">
+                        <div class="form-group col-md-4 float-right">
+                        <div class="input-group-append">
+                             <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
 
-                                <td><a type="button" class="btn btn-success" href="{% url 'history:history_update' h.id %}"> <i class="fas fa-edit"></i> Update</a>  <a type="button" class="btn btn-danger" href="#" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
-                            </tr>
-                         {% endfor %}
-                    <tbody>
+                        </div>
 
-                </table>
+
+                    </div>
+                    <table class="table table-bordered">
+
+                        <thead>
+
+                        <tr>
+
+                            <!--<th>ID</th>-->
+                            <th>History</th>
+
+
+                            <!--<th>Action</th>-->
+
+                        </tr>
+                        </thead>
+                            <tbody id="myTable">
+                            {% for h in history %}
+                                <tr>
+
+                                    <!--<td>{{ h.id }}</td>-->
+                                    <td>{{ h.details }}</td>
+
+
+
+
+                                    <!--<td><a type="button" class="btn btn-success" href="{% url 'history:history_update' h.id %}"> <i class="fas fa-edit"></i> Update</a>  <a type="button" class="btn btn-danger" href="#" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a></td>-->
+                                </tr>
+                             {% endfor %}
+                        <tbody>
+
+                    </table>
+                </div>
+
+        {% endif %}
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                        <script src="{% static 'history/js/search.js' %}">
+
+                        </script>
+
+
             </div>
 
-    {% endif %}
-
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                    <script>
-                    $(document).ready(function(){
-                      $("#myInput").on("keyup", function() {
-                        var value = $(this).val().toLowerCase();
-                        $("#myTable tr").filter(function() {
-                          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                        });
-                      });
-                    });
-                    </script>
-
-
+    </div>
 </div>
-</div>
+
 {% endblock %}

@@ -7,4 +7,4 @@ class History(models.Model):
     details = models.TextField()
 
     def __str__(self):
-        return self.patient
+        return f'self.patient'

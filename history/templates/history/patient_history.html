@@ -1,0 +1,33 @@
+{% extends 'patient/patientdashboard.html' %}
+{% load static %}
+{% block content %}
+
+<link href="{% static 'patient/css/style.css' %}"/>
+
+{% if history %}
+<div class ="container">
+    <div class="row">
+        <div class="col-md">
+             <p class="bg-primary text-white p-2" >My History</p>
+        </div>
+    </div>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Description</th>
+    </tr>
+      {% for h in history %}
+    <tr>
+
+        <td>{{ forloop.counter }}</td>
+        <td>{{ h.details }}</td>
+
+    </tr>
+       {% endfor %}
+  </table>
+</div>
+</div>
+{% endif %}
+{% endblock %}

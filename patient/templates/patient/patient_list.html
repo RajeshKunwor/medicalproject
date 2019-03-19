@@ -1,27 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
 <title>{%block title %}{{ block.super }}:Patient-List {% endblock %}</title>
 {% block content %}
-
-
+     <div class="row pb-1">
+        <div class="col-md">
+            <a class="btn btn-link" href="{% url 'home:dashboard' %}">Dashboard</a>/<a class="btn btn-link disabled" href="{% url 'patient:patient_list' %}">Patient</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <h6 class="bg-info text-white p-1"><i class="fas fa-users-medical"></i> Patient List</h6>
+        </div>
+    </div>
     {% if patient %}
+        <link rel="stylesheet" href="{% static 'patient/css/style.css' %}"/>
 
-            <div class="table-responsive-sm table-hover">
-                    <div class="form-group col-md-4 float-right">
+            <div class="container">
+                <a id="addtbtn" type="button" class="btn btn-success" href="{% url 'patient:patient_create' %}">
+                           <i class="fas fa-plus"></i> Add Patient
+                        </a>
+                         <div class="form-group col-md-4 float-right">
                     <div class="input-group-append">
                          <input class="form-control rounded-0 py-2" type="search" placeholder="search..." id="myInput">
-                         <i class="fa fa-search"></i>
+
                     </div>
                 </div>
-                <table class="table">
+                <div class="table-responsice">
+                <table class="table table-bordered">
 
                     <thead>
+
                     <tr>
-                        <th><a type="button" class="btn btn-success" href="{% url 'patient:patient_create' %}">
-                           <i class="fas fa-plus"></i> Add Patient
-                        </a> </th>
-                    </tr>
-                    <tr>
+                        <th> User ID</th>
                         <th>Name</th>
+                        <th>Address</th>
+                        <th>Mobile Number</th>
 
                         <th>Action</th>
 
@@ -31,16 +44,23 @@
                         {% for p in patient %}
                             <tr>
 
+                                <td><a href="{% url 'patient:patient_detail' p.id %}">{{ p.user }}</a></td>
+                                <td>{{ p.first_name }} {{p.middle_name}} {{p.last_name}}</td>
+                                <td>{{ p.t_district }}</td>
+                                <td>{{ p.mobile_no }}</td>
 
-                                <td><a href="{% url 'patient:patient_detail' p.id %}"><b>{{p.id }}</b> | {{ p.first_name }} {{p.middle_name}} {{p.last_name}}</a></td>
 
-
-
-                                <td><a type="button" class="btn btn-success" href="{% url 'patient:patient_update' p.id %}"> <i class="fas fa-edit"></i> Update</a>  <a type="button" class="btn btn-danger" href="#" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a>
-                                <a class="btn btn-success" href="{% url 'history:history_create' p.id %}">Add History</a>
-                                <a class="btn btn-info" href="{% url 'history:history_list' p.id %}">View History</a>
-                                <a class="btn btn-primary" href="{% url 'observation:observation_create' p.id %}">Add Observation</a>
-                                 <a class="btn btn-info" href="{% url 'observation:observation_list' p.id %}">View Observation</a>
+                                <td><a id="updatebtn" class="btn btn-success" href="{% url 'patient:patient_update' p.id %}"> <i class="fas fa-edit"></i> Update</a>
+                                    <!--<a type="button" class="btn btn-danger" href="#" onclick="alert('Are you sure want to delete this record ?')"><i class="fas fa-trash-alt"></i> Delete</a>-->
+                                <!--<a class="btn btn-success" href="{% url 'history:history_create' p.id %}">Add History</a>-->
+                                <!--<a class="btn btn-info" href="{% url 'history:history_list' p.id %}">View History</a>-->
+                                <!--<a class="btn btn-primary" href="{% url 'observation:observation_create' p.id %}">Add Observation</a>-->
+                                 <!--<a class="btn btn-info" href="{% url 'observation:observation_list' p.id %}">View Observation</a>-->
+                                  <a id="historybtn" class="btn btn-info" href="{% url 'history:history_list' p.id %}"><i class="fas fa-history"></i> History</a>
+                                  <a id="prescriptionbtn" class="btn btn-info" href="{% url 'prescriptions:prescription_list' p.id %}"><i class="fas fa-clipboard-prescription"></i> Prescription</a>
+                                  <a id="observationbtn"  class="btn btn-info" href="{% url 'observation:observation_list' p.id %}">Observation</a>
+                                   <a id="appointmentbtn" class="btn btn-info" href="{% url 'appointment:appointment_list' p.id %}"><i class="fas fa-calendar-check"></i> Appointment</a>
+                                    <a id="billbtn" class="btn btn-info" href="{% url 'bill:bill_list' p.id %}">Bill</a>
                                 </td>
                             </tr>
                          {% endfor %}
@@ -48,7 +68,7 @@
 
                 </table>
             </div>
-
+            </div>
 
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

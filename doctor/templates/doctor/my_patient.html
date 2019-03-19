@@ -1,0 +1,37 @@
+{% extends 'doctor/doctordashboard.html' %}
+{% block content %}
+
+{% if patient%}
+<div class ="container">
+    <div class="row">
+        <div class="col-md">
+            <p class="bg-primary text-white p-2" >My Patient</p>
+
+        </div>
+    </div>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Contact</th>
+
+
+    </tr>
+      {% for p in patient %}
+    <tr>
+
+        <td>{{ p.first_name }} {{p.middle_name}} {{p.last_name}}</td>
+        <td>{{ p.mobile_no}}</td>
+
+
+
+    </tr>
+      {% empty %}
+      <p>No Reord Found !</p>
+      {% endfor %}
+  </table>
+</div>
+</div>
+{% endif %}
+{% endblock %}
